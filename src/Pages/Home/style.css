@@ -1,0 +1,70 @@
+.containerPrincipal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 50px;
+  gap: 50px;
+}
+.conteudo{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+}
+.titulo {
+  color: #4b4848;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.botaoCadastrar {
+  color: #4b4848;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgb(106, 237, 106);
+  cursor: pointer;
+}
+.conteudo input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.containerLista {
+  width: 60vw;
+  height: fit-content;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+  max-height: 80vh;
+}
+
+.listaItem {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.listaItem strong {
+  color: #4b4848;
+}
+
+.spanAlerta {
+  font-size: 11px;
+  color: #f33636;
+  display: flex;
+  flex-direction: column;
+  font-style: italic;
+  padding-left: 5px;
+  position: absolute;
+}
