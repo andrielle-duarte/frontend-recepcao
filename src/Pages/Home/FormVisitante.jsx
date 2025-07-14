@@ -3,6 +3,7 @@ import { createVisitor } from "../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./style.css";
+import axios from "axios";
 
 // Validação com Yup
 const schema = yup.object({
@@ -24,17 +25,22 @@ export default function Home({ onCadastro}) {
     resolver: yupResolver(schema),
   });
 
-async function onSubmit(userData) {
-  try {
-    await createVisitor(userData);
-    alert("Visitante cadastrado com sucesso!");
-    reset(); // limpa os campos
-    if (onCadastro) onCadastro();
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao cadastrar visitante.");
-  }
-}
+const onSubmit = (data) => {
+  const visitante = {
+    ...data,
+    data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
+  };
+
+  axios.post("http://localhost:8000/visitantes/", visitante)
+    .then((response) => {
+      console.log("Visitante cadastrado:", response.data);
+      onCadastro();
+      reset();
+    })
+    .catch((error) => {
+      console.error("Erro ao cadastrar:", error);
+    });
+};
 
   return (
     <div className="containerCadastrar">

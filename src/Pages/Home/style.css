@@ -5,6 +5,7 @@
   align-items: flex-start;
   padding: 50px;
   gap: 50px;
+  
 }
 .conteudo{
   display: flex;
@@ -40,14 +41,14 @@
   border-radius: 5px;
 }
 .containerLista {
-  width: 60vw;
+  width: 70vw;
   height: fit-content;
   background-color: #ffffff;
-  padding: 30px;
-  border-radius: 8px;
+  padding: 0 30px;
+  border-radius: 10px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
-  max-height: 80vh;
+  max-height: 50vh;
 }
 
 .listaItem {
@@ -67,4 +68,55 @@
   font-style: italic;
   padding-left: 5px;
   position: absolute;
+}
+
+.containerCadastrar, .containerPrincipal {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  flex-shrink: 0;
+}
+.tabelaVisitantes {
+  width: 100%;
+  border-collapse: collapse;
+  
+}
+.tabelaVisitantes th, .tabelaVisitantes td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.tabelaVisitantes th {
+  background-color: rgb(106, 237, 106);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tabelaVisitantes tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabelaVisitantes tr:hover {
+  background-color: #e1f0ff;
+  cursor: default;
+}
+table button {
+  padding: 4px 8px;
+  background-color:rgb(170, 192, 118);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table button:hover {
+  background-color: #d16d67;
 }

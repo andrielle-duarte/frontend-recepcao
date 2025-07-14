@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="containerPrincipal">
       <div className="containerCadastrar">
-        <FormVisitante onCadastro={handleCadastro} /> 
+        <FormVisitante onCadastro={() => setAtualizar((prev) => !prev)} />
       </div>
       <div className="containerLista">
         <ListaVisitantes atualizar={atualizar} />
