@@ -1,0 +1,64 @@
+.containerLista {
+  width: 70vw;
+  height: fit-content;
+  background-color: #ffffff;
+  padding: 0 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(255, 250, 250, 0.2);
+  overflow-x: auto;
+  max-height: 50vh;
+}
+
+.listaItem {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.listaItem strong {
+  color: #4b4848;
+}
+h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  flex-shrink: 0;
+}
+.tabelaVisitantes {
+  width: 100%;
+  border-collapse: collapse;
+  
+  
+}
+.tabelaVisitantes th, .tabelaVisitantes td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.tabelaVisitantes th {
+  background-color: rgb(106, 237, 106);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tabelaVisitantes tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabelaVisitantes tr:hover {
+  background-color: #e1f0ff;
+  cursor: default;
+}
+table button {
+  padding: 4px 8px;
+  background-color:rgb(170, 192, 118);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table button:hover {
+  background-color: #d16d67;
+}
