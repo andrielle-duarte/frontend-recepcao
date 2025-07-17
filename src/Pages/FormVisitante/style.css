@@ -4,13 +4,8 @@
   gap: 15px;
   padding: 30px;
   background-color: #ffffff;
-<<<<<<< HEAD
   border-radius: 8px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-=======
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
->>>>>>> 2311f6010f8f981b36324415f7b69566ddacda5f
 }
 .titulo {
   color: #4b4848;
@@ -20,12 +15,6 @@
 }
 .botaoCadastrar {
   color: #4b4848;
-<<<<<<< HEAD
-=======
-  display: flex;
-  align-items: center;
-  justify-content: center;
->>>>>>> 2311f6010f8f981b36324415f7b69566ddacda5f
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -33,6 +22,10 @@
   background-color: rgb(106, 237, 106);
   cursor: pointer;
 }
+.botaoCadastrar:hover {
+  background-color: #dd6f6f;
+}
+
 .conteudo input {
   padding: 10px;
   font-size: 16px;
@@ -42,20 +35,5 @@
 .containerCadastrar {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-<<<<<<< HEAD
   background-color: #4b4848;
 }
-=======
-  box-sizing: border-box;
-}
-.spanAlerta {
-  font-size: 11px;
-  color: #f33636;
-  display: flex;
-  flex-direction: column;
-  font-style: italic;
-  padding-left: 5px;
-  position: absolute;
-}
-
->>>>>>> 2311f6010f8f981b36324415f7b69566ddacda5f

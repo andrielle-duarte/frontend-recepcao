@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FormVisitante from "../FormVisitante/";
 import PainelAtivos from "../PainelAtivos";
-import ListaVisitantes from "../ListaVisitantes";
+
 import { useNavigate } from "react-router-dom";
 
 import "./style.css";

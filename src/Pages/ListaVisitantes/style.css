@@ -5,8 +5,9 @@ h4 {
   flex-shrink: 0;
 }
 .tabelaVisitantes {
-  width: 100%;
+  width: 50%;
   border-collapse: collapse;
+  margin: 25px;
   
 }
 .tabelaVisitantes th, .tabelaVisitantes td {

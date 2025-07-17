@@ -1,8 +1,8 @@
 .btnVoltar {
   display: inline-block;
-  margin-top: 20px;
+  margin: 20px;
   padding: 10px 15px;
-  background-color: #e0e0e0;
+  background-color: rgb(106, 237, 106);
   text-decoration: none;
   border-radius: 5px;
   color: #000;
@@ -10,5 +10,5 @@
 }
 
 .btnVoltar:hover {
-  background-color: #ccc;
+  background-color: #dd6f6f;
 }

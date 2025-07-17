@@ -2,13 +2,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 50px;
   gap: 50px;
   width: 70%;
   
 }
-<<<<<<< HEAD
 .titulo {
   color: #4b4848;
   display: flex;
@@ -21,6 +20,7 @@
   display: flex;
   align-items: end;
   justify-content: end;
+  margin-right: 10px;
 }
 
 .btnVisitantes {
@@ -33,16 +33,10 @@
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: rgb(185, 248, 185);
+  background-color: rgb(106, 237, 106);
   cursor: pointer;
 }
 .btnVisitantes:hover {
   background-color: #dd6f6f;
 }
 
-=======
-
-
-
-
->>>>>>> 2311f6010f8f981b36324415f7b69566ddacda5f
