@@ -1,13 +1,9 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import FormVisitante from "../FormVisitante/";
 import PainelAtivos from "../PainelAtivos";
 import ListaVisitantes from "../ListaVisitantes";
 import { useNavigate } from "react-router-dom";
-=======
-import FormVisitante from "../FormVisitante/index";
-import ListaVisitantes from "../indexListaVisitante/index";
->>>>>>> 2311f6010f8f981b36324415f7b69566ddacda5f
+
 import "./style.css";
 
 export default function Home() {
