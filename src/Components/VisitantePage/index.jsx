@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListaVisitantes from "../ListaVisitantes/index";
+import VisitantesCadastrados from "../../Components/VisitantesCadastrados";
 import { Link } from "react-router-dom";
 import "../VisitantePage/style.css"
 
@@ -8,7 +8,7 @@ export default function VisitantesPage() {
 
   return (
     <div className="paginaVisitantes">
-      <ListaVisitantes atualizar={atualizar} />
+      <VisitantesCadastrados atualizar={atualizar} />
       <Link to="/" className="btnVoltar">← Voltar para o Cadastro</Link>
     </div>
   );

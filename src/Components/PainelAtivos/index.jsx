@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListaVisitantes from "../ListaVisitantes";
+import VisitantesCadastrados from "../VisitantesCadastrados";
 import "./style.css"
 
 export default function PainelAtivos({ atualizar }) {
@@ -8,7 +8,7 @@ export default function PainelAtivos({ atualizar }) {
     <div className="containerAtivos">
       <div className="painelAtivos">
         <h2>Visitantes Ativos</h2>
-        <ListaVisitantes atualizar={atualizar} somenteAtivos={true} />
+        <VisitantesCadastrados atualizar={atualizar} somenteAtivos={true} />
       </div>
       
     </div>

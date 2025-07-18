@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FormVisitante from "../FormVisitante/";
-import PainelAtivos from "../PainelAtivos";
+import NovaVisita from "../NovaVisita/index";
+import PainelAtivos from "../../Components/PainelAtivos/index";
 
 import { useNavigate } from "react-router-dom";
 
@@ -20,13 +20,14 @@ export default function Home() {
   return (
     <>
       <div className="containerBotaoVisitantes">
+       
         <button onClick={irParaLista} className="btnVisitantes">
             Visitantes Cadastrados
         </button>
       </div>
       <div className="containerPrincipal">
         <div className="containerCadastrar">
-          <FormVisitante onCadastro={handleCadastro} />
+          <NovaVisita onCadastro={handleCadastro} />
           
         </div>
         <div>

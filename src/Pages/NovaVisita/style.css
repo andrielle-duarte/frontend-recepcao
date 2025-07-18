@@ -1,4 +1,4 @@
-.conteudo{
+.conteudoBuscar {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 }
-.botaoCadastrar {
+.botaoBuscar {
   color: #4b4848;
   padding: 10px;
   font-size: 16px;
@@ -22,23 +22,20 @@
   background-color: rgb(106, 237, 106);
   cursor: pointer;
 }
-.botaoCadastrar:hover {
+.botaoBuscar:hover {
   background-color: #dd6f6f;
 }
 
-.conteudo input {
+.conteudoBuscar input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
-  
 }
-.containerCadastrar {
+.containerBuscar {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   background-color: #4b4848;
-  width: 30%;
-  margin: 20px;
   
 }
+
