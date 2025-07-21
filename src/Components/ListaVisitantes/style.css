@@ -5,7 +5,7 @@ h4 {
   flex-shrink: 0;
 }
 .tabelaVisitantes {
-  width: 50%;
+  width: 70%;
   border-collapse: collapse;
   margin: 25px;
   
@@ -51,7 +51,9 @@ table button:hover {
   border-radius: 10px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
-  max-height: 50vh;
+  max-height: 70vh;
+  margin-left: 300px;
+  
 }
 
 .listaItem {

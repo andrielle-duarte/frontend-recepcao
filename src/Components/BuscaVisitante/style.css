@@ -1,6 +1,6 @@
 .conteudoBuscar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 15px;
   padding: 30px;
   background-color: #ffffff;
@@ -35,7 +35,9 @@
 .containerBuscar {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-  background-color: #4b4848;
+  background-color: #ffffff;
   
 }
-
+.containerResultados {
+  margin-top: 50px;
+}

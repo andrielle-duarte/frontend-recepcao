@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { createVisitor } from "../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
+
 import "./style.css";
 import axios from "axios";
 
@@ -78,6 +80,8 @@ const onSubmit = (data) => {
           Cadastrar visitante
         </button>
       </form>
+      
     </div>
+    
   );
 }

@@ -1,15 +1,14 @@
 import { useState } from "react";
-import NovaVisita from "../NovaVisita/index";
-import PainelAtivos from "../../Components/PainelAtivos/index";
-
-import { useNavigate } from "react-router-dom";
-
+import FormBusca from "../../Components/BuscaVisitante";
+import { useNavigate, Link } from "react-router-dom";
 import "./style.css";
 
 export default function Home() {
   const [atualizar, setAtualizar] = useState(false);
   const navigate = useNavigate()
 
+  const [resultados, setResultados] = useState([]);
+  
   const handleCadastro = () => {
     setAtualizar((prev) => !prev);
   };
@@ -17,22 +16,27 @@ export default function Home() {
     navigate("/visitantes");
   }
 
+  const irParaAtivos = () => {
+    navigate("/ativos")
+  }
   return (
     <>
       <div className="containerBotaoVisitantes">
        
+        <button onClick={irParaAtivos} className="btnVisitantes">
+            Visitantes Ativos
+        </button>
         <button onClick={irParaLista} className="btnVisitantes">
             Visitantes Cadastrados
         </button>
       </div>
       <div className="containerPrincipal">
         <div className="containerCadastrar">
-          <NovaVisita onCadastro={handleCadastro} />
+          <FormBusca onCadastro={handleCadastro} />
           
         </div>
-        <div>
-          <PainelAtivos atualizar={atualizar}  />
-        </div>
+        
+        
       </div>
     </>
   );
