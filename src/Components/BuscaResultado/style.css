@@ -1,0 +1,22 @@
+.containerResultados {
+  width: 100%;
+  display: inline;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.btnIniciar{
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 15px;
+  background-color: rgb(106, 237, 106);
+  text-decoration: none;
+  border-radius: 5px;
+  color: #000;
+  transition: background 0.3s;
+}
+
+.btnIniciar:hover {
+  background-color: #dd6f6f;
+}

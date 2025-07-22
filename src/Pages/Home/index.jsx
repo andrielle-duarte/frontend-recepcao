@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FormBusca from "../../Components/BuscaVisitante";
+import PainelAtivos from "../PainelAtivos"
 import { useNavigate, Link } from "react-router-dom";
 import "./style.css";
 
@@ -24,10 +25,10 @@ export default function Home() {
       <div className="containerBotaoVisitantes">
        
         <button onClick={irParaAtivos} className="btnVisitantes">
-            Visitantes Ativos
+             Ativos
         </button>
         <button onClick={irParaLista} className="btnVisitantes">
-            Visitantes Cadastrados
+            Cadastrados
         </button>
       </div>
       <div className="containerPrincipal">

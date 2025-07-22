@@ -44,16 +44,16 @@ table button:hover {
   background-color: #d16d67;
 }
 .containerLista {
-  width: 100vw;
+  max-width: 70vw; 
+  width: fit-content;
   height: fit-content;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
   padding: 0px 10px;
   border-radius: 10px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* sombra mais leve */
   overflow-x: auto;
   max-height: 70vh;
-  margin-left: 300px;
-  
+  backdrop-filter: blur(3px); /* opcional: efeito de vidro fosco */
 }
 
 .listaItem {
