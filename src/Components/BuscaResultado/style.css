@@ -7,16 +7,35 @@
 }
 
 .btnIniciar{
-  display: inline-block;
-  margin: 20px;
-  padding: 10px 15px;
+  color: #4b4848;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   background-color: rgb(106, 237, 106);
-  text-decoration: none;
-  border-radius: 5px;
-  color: #000;
-  transition: background 0.3s;
+  cursor: pointer; 
+  margin: 0 3px;
 }
 
 .btnIniciar:hover {
   background-color: #dd6f6f;
+}
+.tabelaVisitantes input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #685f5f;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.btnVoltar {
+  margin: 10px;
+  color: #4b4848;
+  
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgb(106, 237, 106);
+  cursor: pointer;
 }

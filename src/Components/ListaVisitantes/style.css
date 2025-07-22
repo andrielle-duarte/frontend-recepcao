@@ -43,9 +43,8 @@ table button {
 table button:hover {
   background-color: #d16d67;
 }
-.containerLista {
-  max-width: 70vw; 
-  width: fit-content;
+.containerLista { 
+  width: 100%;
   height: fit-content;
   background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
   padding: 0px 10px;

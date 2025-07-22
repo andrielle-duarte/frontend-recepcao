@@ -21,7 +21,7 @@ export default function VisitantesPage() {
       <div className="containerBotaoVisitantes">
 
         <button onClick={irParaAtivos} className="btnVisitantes">
-          Visitantes Ativos
+           Ativos
         </button>
         <button onClick={irParaBusca} className="btnVisitantes">
           Tela de busca
