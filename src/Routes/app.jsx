@@ -9,8 +9,15 @@ import PainelAtivos from "../Pages/PainelAtivos";
 import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 
 export default function App() {
+  const [atualizar, setAtualizar] = useState(false);
+
+  const handleCadastro = () => {
+    setAtualizar((prev) => !prev);
+  };
+
   return (
     <>
       <ErrorBoundary>
@@ -19,9 +26,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/visitantes" element={<VisitantesPage />} />
-            <Route path="/ativos" element={<PainelAtivos />} />
+            <Route path="/ativos" element={<PainelAtivos atualizar={atualizar}/>} />
             <Route path="/buscar" element={<BuscarVisitante />} />
-            <Route path="/cadastro" element={<FormVisitante />} />
+            <Route path="/cadastro" element={<FormVisitante  onCadastro={handleCadastro}/>} />
             <Route path="/resultados" element={<BuscaResultado />} />
           </Routes>
         </Router>

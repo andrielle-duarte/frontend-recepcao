@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../NavBar";
+
 import "./style.css"
 
 const iniciarVisita = async (visitanteId) => {
@@ -17,9 +17,9 @@ const iniciarVisita = async (visitanteId) => {
 
         const dataEntrada = new Date().toISOString();
 
-        await axios.put(`http://localhost:8000/visitantes/${visitanteId}`, {
+        await axios.put(`http://localhost:8000/visitantes/${visitanteId}/iniciar`, {
             ...visitante,
-            data_entrada: dataEntrada,
+            data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T"),
             data_saida: null,
         });
 
@@ -53,7 +53,7 @@ export default function BuscarResultado() {
 
     return (
         <div className="containerResultados">
-            <Navbar />
+            
             <h2>Resultado da Busca</h2>
             {resultados.length > 0 ? (
                 <table className="tabelaVisitantes">
@@ -74,8 +74,8 @@ export default function BuscarResultado() {
                                 <td>{visitante.documento}</td>
                                 <td>{visitante.motivo_visita || "-"}</td>
                                 <td>
-                                    <button className="btnIniciar" onClick={() => alert(`Iniciar visita para ID: ${visitante.id}`)}>
-                                        {iniciarVisita}
+                                    <button className="btnIniciar" onClick={() => iniciarVisita(visitante.id)}>
+                                        Iniciar visita
                                     </button>
                                     {/*Colocar botão de alterar o motivo */}
                                 </td>

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { createVisitor } from "../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./style.css";
 import axios from "axios";
@@ -17,7 +17,7 @@ const schema = yup.object({
   motivo_visita: yup.string().required("Campo obrigatório"),
 }).required();
 
-export default function Home({ onCadastro}) {
+export default function Home({ onCadastro }) {
   const {
     register,
     handleSubmit,
@@ -27,24 +27,48 @@ export default function Home({ onCadastro}) {
     resolver: yupResolver(schema),
   });
 
-const onSubmit = (data) => {
-  const visitante = {
-    ...data,
-    data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
+  const onSubmit = (data) => {
+    const visitante = {
+      ...data,
+      data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
+    };
+
+    axios.post("http://localhost:8000/visitantes/", visitante)
+      .then((response) => {
+        console.log("Visitante cadastrado:", response.data);
+        onCadastro();
+        reset({
+          nome: "",
+          documento: "",
+          motivo_visita: ""
+        });
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar:", error);
+      });
   };
 
-  axios.post("http://localhost:8000/visitantes/", visitante)
-    .then((response) => {
-      console.log("Visitante cadastrado:", response.data);
-      onCadastro();
-      reset();
-    })
-    .catch((error) => {
-      console.error("Erro ao cadastrar:", error);
-    });
-};
+  const navigate = useNavigate(); 
+  const irParaBusca = () => {
+    navigate("/");
+  }
+
+  const irParaAtivos = () => {
+    navigate("/ativos")
+  }
+
 
   return (
+    <>
+      <div className="containerBotaoVisitantes">
+
+        <button onClick={irParaBusca} className="btnVisitantes">
+          Tela de busca
+        </button>
+        <button onClick={irParaAtivos} className="btnVisitantes">
+          Visitantes Ativos
+        </button>
+      </div>
     <div className="containerCadastrar">
       <form className="conteudo" onSubmit={handleSubmit(onSubmit)}>
         <h4 className="titulo">Cadastro de visitante</h4>
@@ -80,8 +104,9 @@ const onSubmit = (data) => {
           Cadastrar visitante
         </button>
       </form>
-      
+
     </div>
-    
+    </>
+
   );
 }
