@@ -12,7 +12,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
   const fetchVisitantes = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/visitantes/");
+      const response = await axios.get("http://localhost:8000/visitantes/");
       let data = response.data;
 
       if (somenteAtivos) {
@@ -60,7 +60,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
 
     try {
-      await axios.put(`http://localhost:8000/api/visitantes/${id}`, {
+      await axios.put(`http://localhost:8000/visitantes/${id}`, {
         ...visitante,
         data_saida: dataSaida.toLocaleString("sv-SE").replace(" ", "T"),
       });
