@@ -6,6 +6,7 @@ import BuscaResultado from "../Components/BuscaResultado";
 import FormVisitante from "../Components/FormVisitante";
 import Topo from "../Components/Topo";
 import PainelAtivos from "../Pages/PainelAtivos";
+import HistoricoVisitas from "../Components/HistoricoVisitas";
 import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,6 +31,8 @@ export default function App() {
             <Route path="/buscar" element={<BuscarVisitante />} />
             <Route path="/cadastro" element={<FormVisitante  onCadastro={handleCadastro}/>} />
             <Route path="/resultados" element={<BuscaResultado />} />
+            <Route path="/historico/:id" element={<HistoricoVisitas />} />
+
           </Routes>
         </Router>
       </ErrorBoundary>

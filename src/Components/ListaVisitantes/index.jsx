@@ -102,6 +102,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
               {somenteAtivos && <th>Tempo de permanência</th>}
               {!somenteAtivos && <th>Data Entrada</th>}
               {!somenteAtivos && <th>Data Saída</th>}
+              
               <th>Ações</th>
             </tr>
           </thead>
@@ -129,6 +130,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                     <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
                   )}
                   <td>
+                  
                     {!v.data_saida && (
                       <button
                         className="btnEncerrarVisita"

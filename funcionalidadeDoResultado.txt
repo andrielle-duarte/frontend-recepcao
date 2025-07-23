@@ -27,7 +27,7 @@ const iniciarVisita = async (visitante, atualizarLista) => {
 
         await axios.put(`http://localhost:8000/visitantes/${visitante.id}/iniciar`, {
             ...visitante,
-            motivo_visita: motivo,
+            motivo_visita:motivo,
             data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T"),
             data_saida: null,
         });
@@ -95,6 +95,7 @@ export default function BuscarResultado() {
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>Documento</th>
+                                <th>Motivo</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -105,6 +106,17 @@ export default function BuscarResultado() {
                                     <td>{visitante.nome}</td>
                                     <td>{visitante.documento}</td>
                                     <td>
+                                        {editandoId === visitante.id ? (
+                                            <input
+                                                type="text"
+                                                value={novoMotivo}
+                                                onChange={(e) => setNovoMotivo(e.target.value)}
+                                            />
+                                        ) : (
+                                            visitante.motivo_visita || "-"
+                                        )}
+                                    </td>
+                                    <td>
                                         <button
                                             className="btnIniciar"
                                             onClick={() => iniciarVisita(visitante, buscarVisitantes)}
@@ -112,14 +124,28 @@ export default function BuscarResultado() {
                                             Iniciar visita
                                         </button>
 
-
-                                        <button
-                                            className="btnIniciar"
-                                            onClick={() => window.open(`/historico/${visitante.id}`)}
-                                        >
-                                            Consultar histórico de visitas
-                                        </button>
-
+                                        {editandoId === visitante.id ? (
+                                            <>
+                                                <button className="btnIniciar"
+                                                    onClick={() => {
+                                                        alterarMotivo(visitante.id, novoMotivo, buscarVisitantes);
+                                                        setEditandoId(null);
+                                                    }}
+                                                >
+                                                    Salvar
+                                                </button>
+                                                <button className="btnIniciar" onClick={() => setEditandoId(null)}>Cancelar</button>
+                                            </>
+                                        ) : (
+                                            <button className="btnIniciar"
+                                                onClick={() => {
+                                                    setEditandoId(visitante.id);
+                                                    setNovoMotivo(visitante.motivo_visita || "");
+                                                }}
+                                            >
+                                                Alterar motivo
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
