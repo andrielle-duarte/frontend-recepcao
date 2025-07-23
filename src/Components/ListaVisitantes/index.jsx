@@ -60,7 +60,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
 
     try {
-      await axios.put(`http://localhost:8000/visitantes/${id}`, {
+      await axios.put(`http://localhost:8000/visitantes/${id}/encerrar`, {
         ...visitante,
         data_saida: dataSaida.toLocaleString("sv-SE").replace(" ", "T"),
       });
