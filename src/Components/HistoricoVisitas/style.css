@@ -1,0 +1,34 @@
+.containerVisitas {
+  width: 100%;
+  display: inline;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.tabelaVisitas {
+  width: 70%;
+  border-collapse: collapse;
+  margin: 25px;
+  
+}
+.tabelaVisitas th, .tabelaVisitas td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.tabelaVisitas th {
+  background-color: rgb(106, 237, 106);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tabelaVisitas tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabelaVisitas tr:hover {
+  background-color: #e1f0ff;
+  cursor: default;
+}

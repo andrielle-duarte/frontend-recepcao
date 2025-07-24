@@ -18,21 +18,35 @@ export default function HistoricoVisitas() {
   }, [visitante]);
 
   return (
-    <div>
-      <h2>Histórico de Visitas - Visitante {visitante}</h2>
-      {visitas.length > 0 ? (
-        <ul>
-          {visitas.map((v, index) => (
-            <li key={index}>
-              Motivo: {v.motivo_visita} <br />
-              Entrada: {v.data_entrada} <br />
-              Saída: {v.data_saida || "Em andamento"}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Nenhuma visita registrada.</p>
-      )}
-    </div>
+    <div className="containerVisitas">
+                <h2>Historico de visitas - Visitante {visitante}</h2>
+                {visitas.length > 0 ? (
+                    <table className="tabelaVisitas">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Motivo da Visita</th>
+                                <th>Data de entrada</th>
+                                <th>Data de saída</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {visitas.map((v, index) => (
+                                <tr key={index}>
+                                    <td>{v.id}</td>
+                                    <td>{v.motivo_visita}</td>
+                                    <td>{v.data_entrada}</td>
+                                    <td>{v.data_saida}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>Nenhum visitante encontrado.</p>
+                )}
+
+
+            </div>
   );
 }
+
