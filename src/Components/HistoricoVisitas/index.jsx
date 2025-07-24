@@ -3,21 +3,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function HistoricoVisitas() {
-  const { visitante_id } = useParams();
+  let params = useParams();
+  let visitante = params.id
+  
   const [visitas, setVisitas] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/visitas/historico/${visitante_id}`)
+    axios.get(`http://localhost:8000/visitas/historico/${visitante}`)
       .then(res => setVisitas(res.data))
       .catch(err => {
         console.error("Erro ao buscar visitas:", err);
         alert("Erro ao buscar histórico");
       });
-  }, [visitante_id]);
+  }, [visitante]);
 
   return (
     <div>
-      <h2>Histórico de Visitas - Visitante {visitante_id}</h2>
+      <h2>Histórico de Visitas - Visitante {visitante}</h2>
       {visitas.length > 0 ? (
         <ul>
           {visitas.map((v, index) => (

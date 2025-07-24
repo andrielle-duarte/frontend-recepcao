@@ -32,7 +32,7 @@ export default function Home({ onCadastro }) {
   const onSubmit = async (data) => {
   try {
     // 1. Cadastrar o visitante
-    const visitanteResponse = await axios.post("http://localhost:8000/visitas/visitantes", {
+    const visitanteResponse = await axios.post("http://localhost:8000/visitantes", {
       ...data,
       data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
     });
