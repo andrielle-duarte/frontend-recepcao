@@ -36,7 +36,7 @@ export default function HistoricoVisitas() {
                                     <td>{v.id}</td>
                                     <td>{v.motivo_visita}</td>
                                     <td>{v.data_entrada}</td>
-                                    <td>{v.data_saida}</td>
+                                    <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : "Em andamento"}</td>
                                 </tr>
                             ))}
                         </tbody>

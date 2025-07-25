@@ -47,6 +47,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
       totalMs: diffMs
     };
   }
+  
   const encerrarVisita = async (id) => {
     const visitante = visitantes.find((v) => v.id === id);
     if (!visitante) return;
@@ -59,10 +60,12 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
       return;
     }
 
+
     try {
       await axios.put(`http://localhost:8000/visitantes/${id}/encerrar`, {
         ...visitante,
-        data_saida: dataSaida.toLocaleString("sv-SE").replace(" ", "T"),
+        data_saida: dataSaida.toLocaleString("sv-SE").replace(" ", "T")
+        
       });
       fetchVisitantes();
     } catch (error) {
@@ -70,13 +73,9 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
   };
 
-  useEffect(() => {
-    fetchVisitantes();
-  }, []);
-
-  useEffect(() => {
-    fetchVisitantes();
-  }, [atualizar]);
+ useEffect(() => {
+  fetchVisitantes();
+}, [atualizar]);
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -102,7 +101,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
               {somenteAtivos && <th>Tempo de permanência</th>}
               {!somenteAtivos && <th>Data Entrada</th>}
               {!somenteAtivos && <th>Data Saída</th>}
-              
+
               <th>Ações</th>
             </tr>
           </thead>
@@ -130,7 +129,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                     <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
                   )}
                   <td>
-                  
+
                     {!v.data_saida && (
                       <button
                         className="btnEncerrarVisita"

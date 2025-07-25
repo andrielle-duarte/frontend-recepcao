@@ -6,10 +6,16 @@ import "./style.css";
 
 const iniciarVisita = async (visitante, atualizarLista) => {
     try {
-        if (visitante.data_entrada && !visitante.data_saida) {
+        // Checar se já tem uma visita ativa
+        const respostaVisitas = await axios.get(`http://localhost:8000/visitas/historico/${visitante.id}`);
+        const visitas = Array.isArray(respostaVisitas.data) ? respostaVisitas.data : []; // força como array
+        const temVisitaAtiva = visitas.some(v => v.data_saida === null);
+
+        if (temVisitaAtiva) {
             alert("Este visitante já está com uma visita ativa.");
             return;
         }
+
         let motivo = visitante.motivo_visita;
 
         if (motivo && motivo.trim()) {
@@ -23,17 +29,17 @@ const iniciarVisita = async (visitante, atualizarLista) => {
             }
         }
 
+        // Agora sim: REGISTRAR UMA NOVA VISITA
         const dataEntrada = new Date().toISOString();
 
-        await axios.put(`http://localhost:8000/visitantes/${visitante.id}/iniciar`, {
-            ...visitante,
+        await axios.post(`http://localhost:8000/visitas/`, {
+            visitante_id: visitante.id,
             motivo_visita: motivo,
-            data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T"),
-            data_saida: null,
+            data_entrada: dataEntrada,
         });
 
         alert("Visita iniciada com sucesso!");
-        atualizarLista(); // Atualiza a lista depois da alteração
+        atualizarLista();
     } catch (error) {
         console.error("Erro ao iniciar visita:", error);
         alert("Erro ao iniciar visita");
