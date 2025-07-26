@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
 import { IoMdExit } from "react-icons/io";
-import { FaEdit } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa";
+
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
@@ -62,15 +61,11 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
 
     try {
-      await axios.put(`http://localhost:8000/visitantes/${id}/encerrar`, {
-        ...visitante,
-        data_saida: dataSaida.toLocaleString("sv-SE").replace(" ", "T")
-        
-      });
-      fetchVisitantes();
-    } catch (error) {
-      console.error("Erro ao encerrar visita:", error);
-    }
+      await axios.put(`http://localhost:8000/visitas/${id}/encerrar`);
+    fetchVisitantes(); // Atualiza a lista após encerrar  
+  } catch (error) {
+    console.error("Erro ao encerrar visita:", error);
+  }
   };
 
  useEffect(() => {

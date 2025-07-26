@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./style.css"
 
 export default function HistoricoVisitas() {
   let params = useParams();
   let visitante = params.id
+  
   
   const [visitas, setVisitas] = useState([]);
 
@@ -36,7 +38,7 @@ export default function HistoricoVisitas() {
                                     <td>{v.id}</td>
                                     <td>{v.motivo_visita}</td>
                                     <td>{v.data_entrada}</td>
-                                    <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : "Em andamento"}</td>
+                                    <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
                                 </tr>
                             ))}
                         </tbody>

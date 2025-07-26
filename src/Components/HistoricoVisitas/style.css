@@ -1,9 +1,13 @@
 .containerVisitas {
-  width: 100%;
-  display: inline;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  width: 70%;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
+  padding: 0px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* sombra mais leve */
+  overflow-x: auto;
+  max-height: 70vh;
+  backdrop-filter: blur(3px); /* opcional: efeito de vidro fosco */
 }
 .tabelaVisitas {
   width: 70%;

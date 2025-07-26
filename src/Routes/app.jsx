@@ -5,6 +5,7 @@ import BuscarVisitante from "../Components/BuscaVisitante";
 import BuscaResultado from "../Components/BuscaResultado";
 import FormVisitante from "../Components/FormVisitante";
 import Topo from "../Components/Topo";
+import Navbar from "../Components/Navbar";
 import PainelAtivos from "../Pages/PainelAtivos";
 import HistoricoVisitas from "../Components/HistoricoVisitas";
 import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary"; 
@@ -24,6 +25,7 @@ export default function App() {
       <ErrorBoundary>
         <Router>
           <Topo />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/visitantes" element={<VisitantesPage />} />

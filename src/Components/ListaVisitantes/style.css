@@ -46,23 +46,15 @@ table button:hover {
 .containerLista { 
   width: 100%;
   height: fit-content;
-  background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
+  background-color: rgba(255, 255, 255, 0.01); 
   padding: 0px 10px;
   border-radius: 10px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* sombra mais leve */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); 
   overflow-x: auto;
   max-height: 70vh;
-  backdrop-filter: blur(3px); /* opcional: efeito de vidro fosco */
+  backdrop-filter: blur(3px); 
 }
 
-.listaItem {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.listaItem strong {
-  color: #4b4848;
-}
 
 .spanAlerta {
   font-size: 11px;

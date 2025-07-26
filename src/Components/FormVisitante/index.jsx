@@ -2,8 +2,6 @@ import { useForm } from "react-hook-form";
 import { createVisitor } from "../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-
 import "./style.css";
 import axios from "axios";
 
@@ -61,27 +59,8 @@ export default function Home({ onCadastro }) {
   }
 };
 
-
-
-  const navigate = useNavigate();
-  const irParaBusca = () => {
-    navigate("/");
-  };
-
-  const irParaAtivos = () => {
-    navigate("/ativos");
-  };
-
   return (
     <>
-      <div className="containerBotaoVisitantes">
-        <button onClick={irParaBusca} className="btnVisitantes">
-          Tela de busca
-        </button>
-        <button onClick={irParaAtivos} className="btnVisitantes">
-          Visitantes Ativos
-        </button>
-      </div>
       <div className="containerCadastrar">
         <form className="conteudo" onSubmit={handleSubmit(onSubmit)}>
           <h4 className="titulo">Cadastro de visitante</h4>
