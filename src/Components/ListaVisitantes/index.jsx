@@ -2,32 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
 import { IoMdExit } from "react-icons/io";
-
+import { somenteAtivos as buscarAtivos } from "../../utils/somenteAtivos"; 
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
-
   const [tempoAtual, setTempoAtual] = useState(Date.now());
 
   const fetchVisitantes = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/visitantes/");
-      let data = response.data;
-
       if (somenteAtivos) {
-        data = data.filter(
-          (v) =>
-            v.data_saida === null ||
-            v.data_saida === "" ||
-            v.data_saida === undefined
-        );
+        const ativos = await buscarAtivos();
+        setVisitantes(ativos);
+      } else {
+        const response = await axios.get("http://localhost:8000/visitantes/");
+        setVisitantes(response.data);
       }
-
-      setVisitantes(data);
     } catch (error) {
       console.error("Erro ao carregar visitantes:", error);
     }
   };
+
 
   function getTempoPermanencia(dataEntrada) {
     const entrada = new Date(dataEntrada);
