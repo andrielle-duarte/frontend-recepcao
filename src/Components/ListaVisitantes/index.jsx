@@ -2,26 +2,38 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
 import { IoMdExit } from "react-icons/io";
-import { somenteAtivos as buscarAtivos } from "../../utils/somenteAtivos"; 
 
-export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
+export default function ListaVisitantes({ atualizar }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
 
-  const fetchVisitantes = async () => {
+  const fetchVisitantesAtivos = async () => {
     try {
-      if (somenteAtivos) {
-        const ativos = await buscarAtivos();
-        setVisitantes(ativos);
-      } else {
-        const response = await axios.get("http://localhost:8000/visitantes/");
-        setVisitantes(response.data);
-      }
+      const response = await axios.get("http://localhost:8000/visitas/ativas");
+      setVisitantes(response.data);
     } catch (error) {
-      console.error("Erro ao carregar visitantes:", error);
+      console.error("Erro ao carregar visitantes ativos:", error);
     }
   };
 
+  const fetchVisitantesTodos = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/visitantes");
+      setVisitantes(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar visitantes:", error);
+    }
+  };
+
+  useEffect(() => {
+  
+
+  // TO-DO: com use state
+  //validar os estados para decidir entre:
+  //fetchVisitantesTodos();
+  //       OU
+  fetchVisitantesAtivos();
+}, [])
 
   function getTempoPermanencia(dataEntrada) {
     const entrada = new Date(dataEntrada);
@@ -34,13 +46,13 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     const segundos = segundosTotais % 60;
 
     return {
-      tempoFormatado: `${horas.toString().padStart(2, '0')}h ` +
-        `${minutos.toString().padStart(2, '0')}m ` +
-        `${segundos.toString().padStart(2, '0')}s`,
+      tempoFormatado: `${horas.toString().padStart(2, "0")}h ` +
+        `${minutos.toString().padStart(2, "0")}m ` +
+        `${segundos.toString().padStart(2, "0")}s`,
       totalMs: diffMs
     };
   }
-  
+
   const encerrarVisita = async (id) => {
     const visitante = visitantes.find((v) => v.id === id);
     if (!visitante) return;
@@ -53,30 +65,24 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
       return;
     }
 
-
     try {
       await axios.put(`http://localhost:8000/visitas/${id}/encerrar`);
-    fetchVisitantes(); // Atualiza a lista após encerrar  
-  } catch (error) {
-    console.error("Erro ao encerrar visita:", error);
-  }
+      fetchVisitantesAtivos();
+    } catch (error) {
+      console.error("Erro ao encerrar visita:", error);
+    }
   };
 
- useEffect(() => {
-  fetchVisitantes();
-}, [atualizar]);
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setTempoAtual(Date.now());
+      setTempoAtual(() => Date.now());
     }, 1000);
-
     return () => clearInterval(intervalo);
   }, []);
 
   return (
     <div className="containerLista">
-
       {visitantes.length === 0 ? (
         <p>Nenhum visitante ativo.</p>
       ) : (
@@ -87,10 +93,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
               <th>Nome</th>
               <th>Documento</th>
               <th>Motivo</th>
-              {somenteAtivos && <th>Tempo de permanência</th>}
-              {!somenteAtivos && <th>Data Entrada</th>}
-              {!somenteAtivos && <th>Data Saída</th>}
-
+              <th>Tempo de permanência</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -103,22 +106,15 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                 <tr
                   key={v.id}
                   style={{
-                    backgroundColor: somenteAtivos && passou24h ? "#f18e8eff" : "transparent"
+                    backgroundColor: passou24h ? "#f18e8eff" : "transparent",
                   }}
                 >
                   <td>{v.id}</td>
-                  <td>{v.nome}</td>
-                  <td>{v.documento}</td>
+                  <td>{v.nome || "-"}</td>
+                  <td>{v.documento || "-"}</td>
                   <td>{v.motivo_visita || "-"}</td>
-                  {somenteAtivos && <td>{tempoFormatado}</td>}
-                  {!somenteAtivos && (
-                    <td>{v.data_entrada ? new Date(v.data_entrada).toLocaleString() : ""}</td>
-                  )}
-                  {!somenteAtivos && (
-                    <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
-                  )}
+                  <td>{tempoFormatado}</td>
                   <td>
-
                     {!v.data_saida && (
                       <button
                         className="btnEncerrarVisita"
@@ -131,7 +127,6 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                 </tr>
               );
             })}
-
           </tbody>
         </table>
       )}

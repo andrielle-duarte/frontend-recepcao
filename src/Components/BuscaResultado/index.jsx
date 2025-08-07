@@ -6,11 +6,12 @@ import "./style.css";
 
 const iniciarVisita = async (visitante, atualizarLista) => {
   try {
-    await axios.put(
-      `http://localhost:8000/visitantes/${visitante.id}/iniciar`,
+    await axios.post(
+      `http://localhost:8000/visitas/`,
       {
         nome: visitante.nome,
         documento: visitante.documento,
+        visitante_id: visitante.id,
         motivo_visita: visitante.motivo_visita,
         data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
       }
@@ -50,7 +51,7 @@ const iniciarVisita = async (visitante, atualizarLista) => {
 const alterarMotivo = async (visitanteId, novoMotivo, atualizarLista) => {
   try {
     await axios.put(
-      `http://localhost:8000/visitantes/${visitanteId}/alterarMotivo`,
+      `http://localhost:8000/visitantes/${visitanteId}/alterar-motivo`,
       {
         motivo_visita: novoMotivo,
       }
