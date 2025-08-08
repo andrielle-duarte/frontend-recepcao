@@ -37,7 +37,7 @@ export default function HistoricoVisitas() {
               <tr key={index}>
                 <td>{v.id}</td>
                 <td>{v.motivo_visita}</td>
-                <td>{new Date(v.data_entrada + "Z").toLocaleString()}</td>
+                <td>{new Date(v.data_entrada).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}</td>
                 <td>
                   {v.data_saida
                     ? new Date(v.data_saida + "Z").toLocaleString()
