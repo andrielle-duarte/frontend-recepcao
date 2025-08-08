@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 import { IoMdExit } from "react-icons/io";
 
@@ -7,6 +8,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
 
+  
   const fetchVisitantes = async () => {
     const url = somenteAtivos
       ? "http://localhost:8000/visitas/ativas"
@@ -14,17 +16,18 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
     try {
       const response = await axios.get(url);
-      setVisitantes(response.data);
+      setVisitantes(response.data); 
     } catch (error) {
       console.error("Erro ao carregar visitantes:", error);
     }
   };
 
+  // Hook que chama fetchVisitantes ao montar o componente e quando as props 'atualizar' ou 'somenteAtivos' mudam
   useEffect(() => {
     fetchVisitantes();
   }, [atualizar, somenteAtivos]);
 
-  // Atualiza o tempo a cada segundo para visitantes ativos
+  // Hook para atualizar a interface a cada segundo quando exibindo visitantes ativos (para atualizar o tempo de permanência)
   useEffect(() => {
     if (somenteAtivos) {
       const intervalo = setInterval(() => {
@@ -34,7 +37,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
   }, [somenteAtivos]);
 
-  // Calcula o tempo de permanência para visitantes ativos
+  // Função que calcula o tempo de permanência de um visitante ativo, retornando tempo formatado e total em ms
   function getTempoPermanencia(dataEntrada) {
     const entrada = new Date(dataEntrada);
     const agora = new Date();
@@ -54,6 +57,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     };
   }
 
+  // Função para encerrar uma visita ativa, chamando o backend e atualizando a lista após sucesso
   const encerrarVisita = async (id) => {
     try {
       await axios.put(`http://localhost:8000/visitas/${id}/encerrar`);
@@ -63,6 +67,27 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
   };
 
+  // Hook de navegação para redirecionar entre páginas (para o histórico)
+  const navigate = useNavigate();
+
+  // Função para iniciar uma visita a partir do id do visitante; chama backend e atualiza a lista
+  const iniciarVisita = async (visitanteId) => {
+    try {
+      await axios.post(`http://localhost:8000/visitas/${visitanteId}`);
+      alert("Visita iniciada!");
+      fetchVisitantes();
+    } catch (error) {
+      console.error("Erro ao iniciar visita:", error);
+      alert("Erro ao iniciar visita.");
+    }
+  };
+
+  // Função que usa a navegação para mostrar o histórico de visitas de um visitante
+  const verHistorico = (visitanteId) => {
+    navigate(`/historico/${visitanteId}`);
+  };
+
+  // JSX que monta a tabela de visitantes, alterando colunas e botões conforme se mostra somente ativos ou todos
   return (
     <div className="containerLista">
       {visitantes.length === 0 ? (
@@ -74,20 +99,14 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
               <th>ID</th>
               <th>Nome</th>
               <th>Documento</th>
-              <th>Motivo</th>
-              {somenteAtivos ? (
-                <th>Tempo de permanência</th>
-              ) : (
-                <>
-                  <th>Data Entrada</th>
-                  <th>Data Saída</th>
-                </>
-              )}
+              {somenteAtivos && <th>Motivo</th>}
+              {somenteAtivos && <th>Tempo de permanência</th>}
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {visitantes.map((v) => {
+              // calcula tempo de permanência para visitantes ativos e marca quem passou de 24h
               const { tempoFormatado, totalMs } = getTempoPermanencia(v.data_entrada);
               const passou24h = totalMs > 24 * 60 * 60 * 1000;
 
@@ -101,23 +120,30 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                   <td>{v.id}</td>
                   <td>{v.visitante?.nome ?? v.nome ?? "-"}</td>
                   <td>{v.visitante?.documento ?? v.documento ?? "-"}</td>
-                  <td>{v.motivo_visita || "-"}</td>
-                  {somenteAtivos ? (
-                    <td>{tempoFormatado}</td>
-                  ) : (
-                    <>
-                      <td>{new Date(v.data_entrada).toLocaleString()}</td>
-                      <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : "-"}</td>
-                    </>
-                  )}
+                  {somenteAtivos && <td>{v.motivo_visita || "-"}</td>}
+                  {somenteAtivos && <td>{tempoFormatado}</td>}
                   <td>
-                    {somenteAtivos && !v.data_saida && (
-                      <button
-                        className="btnEncerrarVisita"
-                        onClick={() => encerrarVisita(v.id)}
-                      >
-                        Encerrar visita <IoMdExit size={20} color="#333" />
-                      </button>
+                    {somenteAtivos ? (
+                      // pra visitantes ativos, botão para encerrar visita
+                      !v.data_saida && (
+                        <button
+                          className="btnEncerrarVisita"
+                          onClick={() => encerrarVisita(v.id)}
+                        >
+                          Encerrar visita <IoMdExit size={20} color="#333" />
+                        </button>
+                      )
+                    ) : (
+                      // pra visitantes cadastrados, botões para iniciar visita** e ver histórico (*ainda vou ver)
+                      <>
+                        
+                        <button
+                          className="btnHistorico"
+                          onClick={() => verHistorico(v.id)}
+                        >
+                          Histórico
+                        </button>
+                      </>
                     )}
                   </td>
                 </tr>

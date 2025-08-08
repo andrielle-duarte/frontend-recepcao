@@ -32,12 +32,14 @@ h4 {
   cursor: default;
 }
 table button {
-  padding: 4px 8px;
-  background-color:rgb(170, 192, 118);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  color: #4b4848;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgb(106, 237, 106);
+  cursor: pointer; 
+  margin: 0 3px;
 }
 
 table button:hover {

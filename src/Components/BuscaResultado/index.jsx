@@ -4,20 +4,21 @@ import { useLocation} from "react-router-dom";
 
 import "./style.css";
 
+const alterarMotivo = async (visitante_id, motivo_visita) => {
+  try {
+    const response = await axios.put(`http://localhost:8000/visitantes/${visitante_id}/alterar-motivo`, {
+      motivo_visita: motivo_visita,
+    });
+    console.log("Motivo alterado com sucesso:", response.data);
+  } catch (error) {
+    console.error("Erro ao alterar motivo:", error);
+  }
+};
 const iniciarVisita = async (visitante, atualizarLista) => {
   try {
-    await axios.post(
-      `http://localhost:8000/visitas/`,
-      {
-        nome: visitante.nome,
-        documento: visitante.documento,
-        visitante_id: visitante.id,
-        motivo_visita: visitante.motivo_visita,
-        data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
-      }
-    );
     let motivo = visitante.motivo_visita;
 
+    // Pergunta se deseja alterar o motivo antes de iniciar a visita
     if (motivo && motivo.trim()) {
       const desejaAlterar = window.confirm(
         `Motivo atual: "${motivo}". Deseja alterar antes de iniciar a visita?`
@@ -31,7 +32,7 @@ const iniciarVisita = async (visitante, atualizarLista) => {
       }
     }
 
-    // Agora sim: REGISTRAR UMA NOVA VISITA
+    // Apenas um POST para registrar a visita
     const dataEntrada = new Date().toLocaleString("sv-SE").replace(" ", "T");
 
     await axios.post(`http://localhost:8000/visitas/`, {
@@ -48,22 +49,6 @@ const iniciarVisita = async (visitante, atualizarLista) => {
   }
 };
 
-const alterarMotivo = async (visitanteId, novoMotivo, atualizarLista) => {
-  try {
-    await axios.put(
-      `http://localhost:8000/visitantes/${visitanteId}/alterar-motivo`,
-      {
-        motivo_visita: novoMotivo,
-      }
-    );
-
-    alert("Motivo alterado com sucesso!");
-    atualizarLista();
-  } catch (error) {
-    console.error("Erro ao alterar motivo:", error);
-    alert("Erro ao alterar motivo");
-  }
-};
 
 export default function BuscarResultado() {
   const location = useLocation();
