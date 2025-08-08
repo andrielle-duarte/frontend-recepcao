@@ -13,7 +13,7 @@ const alterarMotivo = async (visitante_id, motivo_visita) => {
   } catch (error) {
     console.error("Erro ao alterar motivo:", error);
   }
-};
+}; 
 const iniciarVisita = async (visitante, atualizarLista) => {
   try {
     let motivo = visitante.motivo_visita;
@@ -43,12 +43,17 @@ const iniciarVisita = async (visitante, atualizarLista) => {
 
     alert("Visita iniciada com sucesso!");
     atualizarLista();
-  } catch (error) {
-    console.error("Erro ao iniciar visita:", error);
-    alert("Erro ao iniciar visita");
+   } catch (error) {
+    if (error.response && error.response.status === 400) {
+      // Aqui está a mensagem do backend
+      const mensagem = error.response.data.detail;
+      alert(mensagem); // ou exiba em um toast, modal etc.
+    } else {
+      console.error("Erro ao iniciar visita:", error);
+      alert("Erro inesperado ao iniciar visita.");
+    }
   }
 };
-
 
 export default function BuscarResultado() {
   const location = useLocation();
