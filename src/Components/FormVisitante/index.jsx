@@ -42,7 +42,7 @@ export default function Home({ onCadastro }) {
       visitante_id: visitante.id,
       motivo_visita: visitante.motivo_visita,
       data_entrada: visitante.data_entrada,
-      data_saida: null, // ou deixe sem enviar, se for opcional
+      data_saida: null, 
     };
 
     const visitaResponse = await axios.post("http://localhost:8000/visitas/", visitaData);
@@ -56,6 +56,11 @@ export default function Home({ onCadastro }) {
     });
   } catch (error) {
     console.error("Erro ao cadastrar ou iniciar visita:", error);
+    if (error.response && error.response.data && error.response.data.detail) {
+      alert(error.response.data.detail);
+    } else {
+      alert("Visitante com este documento já possui cadastro.");
+    }
   }
 };
 
