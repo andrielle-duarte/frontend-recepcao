@@ -69,25 +69,11 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
   // Hook de navegação para redirecionar entre páginas (para o histórico)
   const navigate = useNavigate();
-
-  // Função para iniciar uma visita a partir do id do visitante; chama backend e atualiza a lista
-  const iniciarVisita = async (visitanteId) => {
-    try {
-      await axios.post(`http://localhost:8000/visitas/${visitanteId}`);
-      alert("Visita iniciada!");
-      fetchVisitantes();
-    } catch (error) {
-      console.error("Erro ao iniciar visita:", error);
-      alert("Erro ao iniciar visita.");
-    }
-  };
-
-  // Função que usa a navegação para mostrar o histórico de visitas de um visitante
   const verHistorico = (visitanteId) => {
     navigate(`/historico/${visitanteId}`);
   };
 
-  // JSX que monta a tabela de visitantes, alterando colunas e botões conforme se mostra somente ativos ou todos
+  // monta a tabela de visitantes, alterando colunas e botões conforme se mostra somente ativos ou todos
   return (
     <div className="containerLista">
       {visitantes.length === 0 ? (
@@ -117,7 +103,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                     backgroundColor: somenteAtivos && passou24h ? "#f18e8eff" : "transparent",
                   }}
                 >
-                  <td>{v.id}</td>
+                  <td>{somenteAtivos ? (v.visitante?.id ?? "-") : v.id}</td>
                   <td>{v.visitante?.nome ?? v.nome ?? "-"}</td>
                   <td>{v.visitante?.documento ?? v.documento ?? "-"}</td>
                   {somenteAtivos && <td>{v.motivo_visita || "-"}</td>}
