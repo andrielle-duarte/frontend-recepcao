@@ -8,7 +8,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
 
-  
+  //Condições com somenteAtivos para exibição numa rota ou em outra
   const fetchVisitantes = async () => {
     const url = somenteAtivos
       ? "http://localhost:8000/visitas/ativas"

@@ -59,8 +59,7 @@ export default function BuscarResultado() {
   const location = useLocation();
   const termoBusca = location.state?.termoBusca || "";
   const [resultados, setResultados] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
-  const [novoMotivo, setNovoMotivo] = useState("");
+
 
   const buscarVisitantes = () => {
     if (termoBusca) {
@@ -112,7 +111,7 @@ export default function BuscarResultado() {
                       className="btnIniciar"
                       onClick={() => window.open(`/historico/${visitante.id}`)}
                     >
-                      Consultar histórico de visitas
+                      Histórico
                     </button>
                   </td>
                 </tr>
