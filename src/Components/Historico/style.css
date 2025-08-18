@@ -1,16 +1,14 @@
 .containerVisitas {
-  width: 70%;
+  width: auto;
   height: fit-content;
-  background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
   padding: 0px 10px;
   border-radius: 10px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* sombra mais leve */
-  overflow-x: auto;
+  overflow-x: hidden;
   max-height: 70vh;
-  backdrop-filter: blur(3px); /* opcional: efeito de vidro fosco */
+  
 }
 .tabelaVisitas {
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
   margin: 25px;
   
@@ -35,4 +33,14 @@
 .tabelaVisitas tr:hover {
   background-color: #e1f0ff;
   cursor: default;
+}
+h2 {
+  text-align: center;
+
+}
+.campo-data {
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  width: 100%;
 }

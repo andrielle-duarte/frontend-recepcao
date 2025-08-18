@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
 
 export default function Historico() {
-
   const [visitas, setVisitas] = useState([]);
+  const [dataInicio, setDataInicio] = useState("");
+  const [dataFim, setDataFim] = useState("");
 
   useEffect(() => {
     axios
@@ -15,31 +15,69 @@ export default function Historico() {
         console.error("Erro ao buscar visitas:", err);
         alert("Erro ao buscar histórico");
       });
-  });
+  }, []); 
+
+  // Filtrar visitas por data
+  const visitasFiltradas = visitas.filter((v) => {
+  const entrada = new Date(v.data_entrada);
+  const inicio = dataInicio ? new Date(dataInicio) : null;
+
+  const fim = dataFim
+    ? new Date(new Date(dataFim).setHours(23, 59, 59, 999))
+    : null;
+
+  if (inicio && fim) return entrada >= inicio && entrada <= fim;
+  if (inicio) return entrada >= inicio;
+  if (fim) return entrada <= fim;
+  return true;
+});
 
   return (
     <div className="containerVisitas">
-      <h2>Historico de visitas</h2>
-      {visitas.length > 0 ? (
+      <h2>Histórico de visitas</h2>
+
+      
+      <div className="campo-data">
+        <label>
+          Data início:{" "}
+          <input
+            type="date"
+            value={dataInicio}
+            onChange={(e) => setDataInicio(e.target.value)}
+          />
+        </label>
+        <label className="campo-data">
+          Data fim:{" "}
+          <input
+            type="date"
+            value={dataFim}
+            onChange={(e) => setDataFim(e.target.value)}
+          />
+        </label>
+      </div>
+
+      {visitasFiltradas.length > 0 ? (
         <table className="tabelaVisitas">
           <thead>
             <tr>
               <th>ID</th>
+              <th>Nome</th>
+              <th>Documento</th>
               <th>Motivo da Visita</th>
               <th>Data de entrada</th>
               <th>Data de saída</th>
             </tr>
           </thead>
           <tbody>
-            {visitas.map((v, index) => (
+            {visitasFiltradas.map((v, index) => (
               <tr key={index}>
                 <td>{v.id}</td>
+                <td>{v.nome}</td>
+                <td>{v.documento}</td>
                 <td>{v.motivo_visita}</td>
                 <td>{new Date(v.data_entrada).toLocaleString()}</td>
                 <td>
-                  {v.data_saida
-                    ? new Date(v.data_saida ).toLocaleString()
-                    : ""}
+                  {v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}
                 </td>
               </tr>
             ))}

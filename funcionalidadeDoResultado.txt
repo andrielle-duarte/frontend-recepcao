@@ -1,9 +1,0 @@
-<button
-                          className="btnIniciarVisita"
-                          onClick={() => iniciarVisita(v.id)}
-                        >
-                          Iniciar visita
-                        </button>
-
-                        função da lista de cadatrados para iniciar mas preciso enviar outros dados como motivo visita e datas pra que funcione e eu tirei essa funcionalidade 
-                        
