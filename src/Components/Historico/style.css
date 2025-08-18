@@ -1,0 +1,38 @@
+.containerVisitas {
+  width: 70%;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.01); /* quase transparente */
+  padding: 0px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* sombra mais leve */
+  overflow-x: auto;
+  max-height: 70vh;
+  backdrop-filter: blur(3px); /* opcional: efeito de vidro fosco */
+}
+.tabelaVisitas {
+  width: 70%;
+  border-collapse: collapse;
+  margin: 25px;
+  
+}
+.tabelaVisitas th, .tabelaVisitas td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.tabelaVisitas th {
+  background-color: rgb(106, 237, 106);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tabelaVisitas tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabelaVisitas tr:hover {
+  background-color: #e1f0ff;
+  cursor: default;
+}

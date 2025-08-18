@@ -15,6 +15,9 @@ export default function Navbar() {
   const irParaCadastro = () => {
     navigate("/cadastro")
   }
+  const irParaHistorico = () => {
+    navigate("/historico")
+  }
   return (
     <>
       <div className="containerBotaoVisitantes">
@@ -29,6 +32,9 @@ export default function Navbar() {
         </button>
         <button onClick={irParaCadastro} className="btnVisitantes">
           Cadastrar
+        </button>
+        <button onClick={irParaHistorico} className="btnVisitantes">
+          Histórico
         </button>
       </div>
     </>
