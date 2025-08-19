@@ -80,9 +80,14 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
   return (
     <div className="containerLista">
+      
+      <h2> {somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"} </h2>
+
       {visitantes.length === 0 ? (
+        
         <p>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</p>
       ) : (
+        
         <table className="tabelaVisitantes">
           <thead>
             <tr>

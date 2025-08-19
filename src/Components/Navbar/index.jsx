@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-
+import "./style.css"
 export default function Navbar() {
   const navigate = useNavigate()
   const irParaBuscar = () => {
@@ -12,17 +12,15 @@ export default function Navbar() {
   const irParaAtivos = () => {
     navigate("/ativos");
   };
-  const irParaCadastro = () => {
-    navigate("/cadastro")
-  }
+  
   const irParaHistorico = () => {
     navigate("/historico")
   }
   return (
     <>
-      <div className="containerBotaoVisitantes">
+      <div className="containerNavbar">
         <button onClick={irParaBuscar} className="btnVisitantes">
-          Buscar
+          Iniciar visita
         </button>
         <button onClick={irParaAtivos} className="btnVisitantes">
           Ativos
@@ -30,9 +28,7 @@ export default function Navbar() {
         <button onClick={irParaLista} className="btnVisitantes">
           Cadastrados
         </button>
-        <button onClick={irParaCadastro} className="btnVisitantes">
-          Cadastrar
-        </button>
+        
         <button onClick={irParaHistorico} className="btnVisitantes">
           Histórico
         </button>

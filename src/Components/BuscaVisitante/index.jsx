@@ -13,7 +13,7 @@ export default function FormBusca() {
 
     return (
         <form className="conteudo" onSubmit={(e) => e.preventDefault()}>
-            <h2 className="titulo">Buscar Visitante</h2>
+            <h2 className="titulo">Iniciar visita</h2>
             <input
                 type="text"
                 placeholder="Digite nome ou CPF"
@@ -21,14 +21,14 @@ export default function FormBusca() {
                 onChange={(e) => setTermoBusca(e.target.value)}
             />
             <button type="button" className="botaoBuscar" onClick={buscar}>
-                Buscar
+                Buscar visitante
             </button>
             <button
                 type="button"
                 className="botaoBuscar"
                 onClick={() => navigate("/cadastro")}
             >
-                Novo Cadastro
+                Cadastrar novo visitante
             </button>
         </form>
     );
