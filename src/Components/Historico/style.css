@@ -44,3 +44,15 @@ h2 {
   text-align: center;
   width: 100%;
 }
+.btnHistorico {
+  color: #4b4848;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgb(106, 237, 106);
+  cursor: pointer;
+}
+.btnHistorico:hover {
+  background-color: #dd6f6f;
+}

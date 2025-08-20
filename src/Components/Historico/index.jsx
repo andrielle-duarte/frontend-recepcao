@@ -15,28 +15,28 @@ export default function Historico() {
         console.error("Erro ao buscar visitas:", err);
         alert("Erro ao buscar histórico");
       });
-  }, []); 
+  }, []);
 
   // Filtrar visitas por data
   const visitasFiltradas = visitas.filter((v) => {
-  const entrada = new Date(v.data_entrada);
-  const inicio = dataInicio ? new Date(dataInicio) : null;
+    const entrada = new Date(v.data_entrada);
+    const inicio = dataInicio ? new Date(dataInicio) : null;
 
-  const fim = dataFim
-    ? new Date(new Date(dataFim).setHours(23, 59, 59, 999))
-    : null;
+    const fim = dataFim
+      ? new Date(new Date(dataFim).setHours(23, 59, 59, 999))
+      : null;
 
-  if (inicio && fim) return entrada >= inicio && entrada <= fim;
-  if (inicio) return entrada >= inicio;
-  if (fim) return entrada <= fim;
-  return true;
-});
+    if (inicio && fim) return entrada >= inicio && entrada <= fim;
+    if (inicio) return entrada >= inicio;
+    if (fim) return entrada <= fim;
+    return true;
+  });
 
   return (
     <div className="containerVisitas">
       <h2>Histórico de visitas</h2>
 
-      
+
       <div className="campo-data">
         <label>
           Data início:{" "}
@@ -54,6 +54,15 @@ export default function Historico() {
             onChange={(e) => setDataFim(e.target.value)}
           />
         </label>
+        <button
+          className="btnHistorico"
+          onClick={() => {
+            setDataInicio("");
+            setDataFim("");
+          }}
+        >
+          Limpar
+        </button>
       </div>
 
       {visitasFiltradas.length > 0 ? (
