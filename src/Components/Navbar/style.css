@@ -1,7 +1,7 @@
 .containerNavbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: aliceblue;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  justify-content: center;
 }

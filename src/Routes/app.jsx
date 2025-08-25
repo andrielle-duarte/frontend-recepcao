@@ -9,7 +9,8 @@ import Navbar from "../Components/Navbar";
 import PainelAtivos from "../Pages/PainelAtivos";
 import HistoricoVisitas from "../Components/HistoricoVisitas";
 import Historico from "../Components/Historico";
-import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary"; 
+import Login from "../Components/Login";
+import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState } from "react";
@@ -20,6 +21,11 @@ export default function App() {
   const handleCadastro = () => {
     setAtualizar((prev) => !prev);
   };
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  if (!token) {
+    return <Login onLogin={setToken} />;
+  }
 
   return (
     <>
@@ -30,13 +36,19 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/visitantes" element={<VisitantesPage />} />
-            <Route path="/ativos" element={<PainelAtivos atualizar={atualizar}/>} />
+            <Route
+              path="/ativos"
+              element={<PainelAtivos atualizar={atualizar} />}
+            />
             <Route path="/buscar" element={<BuscarVisitante />} />
-            <Route path="/cadastro" element={<FormVisitante  onCadastro={handleCadastro}/>} />
+            <Route
+              path="/cadastro"
+              element={<FormVisitante onCadastro={handleCadastro} />}
+            />
             <Route path="/resultados" element={<BuscaResultado />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/historico/:id" element={<HistoricoVisitas />} />
             <Route path="/historico/" element={<Historico />} />
-
           </Routes>
         </Router>
       </ErrorBoundary>

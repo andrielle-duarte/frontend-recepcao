@@ -1,7 +1,9 @@
 import { useNavigate, Link } from "react-router-dom";
-import "./style.css"
+import "./style.css";
+import LogoutButton from "../Logout/index";
+
 export default function Navbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const irParaBuscar = () => {
     navigate("/");
   };
@@ -12,10 +14,11 @@ export default function Navbar() {
   const irParaAtivos = () => {
     navigate("/ativos");
   };
-  
+
   const irParaHistorico = () => {
-    navigate("/historico")
-  }
+    navigate("/historico");
+  };
+
   return (
     <>
       <div className="containerNavbar">
@@ -28,11 +31,12 @@ export default function Navbar() {
         <button onClick={irParaLista} className="btnVisitantes">
           Cadastrados
         </button>
-        
+
         <button onClick={irParaHistorico} className="btnVisitantes">
           Histórico
         </button>
+        <LogoutButton />
       </div>
     </>
   );
-};
+}
