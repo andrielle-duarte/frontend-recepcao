@@ -27,38 +27,57 @@ export default function Home({ onCadastro }) {
   });
 
   const onSubmit = async (data) => {
-    try {
-      // 1. Cadastrar o visitante
-      const visitanteResponse = await axios.post("http://localhost:8000/visitantes", {
+  try {
+    const token = localStorage.getItem("token"); 
+
+    // 1. Cadastrar o visitante
+    const visitanteResponse = await axios.post(
+      "http://localhost:8000/visitantes",
+      {
         ...data,
-        data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T")
-      });
+        data_entrada: new Date().toLocaleString("sv-SE").replace(" ", "T"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`  // envia o token pro backend
+        }
+      }
+    );
 
-      const visitante = visitanteResponse.data;
+    const visitante = visitanteResponse.data;
 
-      // 2. Iniciar a visita com o ID do visitante retornado
-      const visitaData = {
-        visitante_id: visitante.id,
-        motivo_visita: visitante.motivo_visita,
-        data_entrada: visitante.data_entrada,
-        data_saida: null,
-      };
+    // 2. Iniciar a visita com o ID do visitante retornado
+    const visitaData = {
+      visitante_id: visitante.id,
+      motivo_visita: visitante.motivo_visita,
+      data_entrada: visitante.data_entrada,
+      data_saida: null,
+    };
 
-      const visitaResponse = await axios.post("http://localhost:8000/visitas/", visitaData);
+    const visitaResponse = await axios.post(
+      "http://localhost:8000/visitas/",
+      visitaData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
 
-      console.log("Visita iniciada:", visitaResponse.data);
-      onCadastro();
-      reset({
-        nome: "",
-        documento: "",
-        motivo_visita: "",
-      });
-    } catch (error) {
-      console.error("Erro ao cadastrar ou iniciar visita:", error);
-      const mensagem = error.response?.data?.detail || "Erro inesperado ao cadastrar visitante.";
-      alert(mensagem);
-    }
-  };
+    console.log("Visita iniciada:", visitaResponse.data);
+    onCadastro();
+    reset({
+      nome: "",
+      documento: "",
+      motivo_visita: "",
+    });
+  } catch (error) {
+    console.error("Erro ao cadastrar ou iniciar visita:", error);
+    const mensagem = error.response?.data?.detail || "Erro inesperado ao cadastrar visitante.";
+    alert(mensagem);
+  }
+};
+
 
   return (
     <>

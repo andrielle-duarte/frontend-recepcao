@@ -3,16 +3,17 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "./style.css";
 import { VisitanteResultadoRow } from "../../utils/visitanteResultadoRow";
+import { getBuscarVisitante } from "../../api";
 
 export default function BuscarResultado() {
   const location = useLocation();
   const termoBusca = location.state?.termoBusca || "";
   const [resultados, setResultados] = useState([]);
 
-  const buscarVisitantes = () => {
+  const buscarVisitantes = (termoBusca) => {
     if (termoBusca) {
       axios
-        .get(`http://localhost:8000/visitantes/buscar?termo=${termoBusca}`)
+        getBuscarVisitante()
         .then((response) => setResultados(response.data))
         .catch((error) => {
           console.error("Erro ao buscar visitantes", error);

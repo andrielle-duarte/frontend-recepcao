@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
 import "./style.css";
-import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia"
+import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia";
 
-// Componente para uma linha da tabela pra agilizar a reenderização dos dados 
+// importa funções centralizadas
+import { getAllVisitantes, getVisitantesAtivos, encerrarVisita as encerrarVisitaApi } from "../../api";
+
 function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }) {
   const { tempoFormatado, totalMs } = calcularTempoPermanencia(visitante.data_entrada);
   const passou24h = totalMs > 24 * 60 * 60 * 1000;
@@ -38,18 +39,14 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
   );
 }
 
-// Componente principal
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
   const navigate = useNavigate();
 
   const fetchVisitantes = async () => {
-    const url = somenteAtivos
-      ? "http://localhost:8000/visitas/ativas"
-      : "http://localhost:8000/visitantes";
     try {
-      const response = await axios.get(url);
+      const response = somenteAtivos ? await getVisitantesAtivos() : await getAllVisitantes();
       setVisitantes(response.data);
     } catch (error) {
       console.error("Erro ao carregar visitantes:", error);
@@ -67,9 +64,9 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
     }
   }, [somenteAtivos]);
 
-  const encerrarVisita = async (id) => {
+  const handleEncerrarVisita = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/visitas/${id}/encerrar`);
+      await encerrarVisitaApi(id);
       fetchVisitantes();
     } catch (error) {
       console.error("Erro ao encerrar visita:", error);
@@ -80,14 +77,11 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
 
   return (
     <div className="containerLista">
-      
       <h2> {somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"} </h2>
 
       {visitantes.length === 0 ? (
-        
         <p>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</p>
       ) : (
-        
         <table className="tabelaVisitantes">
           <thead>
             <tr>
@@ -105,7 +99,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
                 key={v.id}
                 visitante={v}
                 somenteAtivos={somenteAtivos}
-                encerrarVisita={encerrarVisita}
+                encerrarVisita={handleEncerrarVisita}
                 verHistorico={verHistorico}
               />
             ))}

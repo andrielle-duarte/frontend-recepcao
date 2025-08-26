@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
+import { getHistoricoVisitas } from "../../api";
 
 export default function HistoricoVisitas() {
   let params = useParams();
@@ -11,7 +12,7 @@ export default function HistoricoVisitas() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/visitas/historico/${visitante}`)
+    getHistoricoVisitas(visitante)
       .then((res) => setVisitas(res.data))
       .catch((err) => {
         console.error("Erro ao buscar visitas:", err);
@@ -27,6 +28,8 @@ export default function HistoricoVisitas() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Nome</th>
+              <th>Documento</th>
               <th>Motivo da Visita</th>
               <th>Data de entrada</th>
               <th>Data de saída</th>
@@ -36,11 +39,13 @@ export default function HistoricoVisitas() {
             {visitas.map((v, index) => (
               <tr key={index}>
                 <td>{v.id}</td>
+                <td>{v.nome_visitante}</td>
+                <td>{v.documento_visitante}</td>
                 <td>{v.motivo_visita}</td>
                 <td>{new Date(v.data_entrada).toLocaleString()}</td>
                 <td>
                   {v.data_saida
-                    ? new Date(v.data_saida ).toLocaleString()
+                    ? new Date(v.data_saida).toLocaleString()
                     : ""}
                 </td>
               </tr>

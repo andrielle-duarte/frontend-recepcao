@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getHistorico } from "../../api";
 import axios from "axios";
 import "./style.css";
 
@@ -8,8 +9,7 @@ export default function Historico() {
   const [dataFim, setDataFim] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/visitas/historico/`)
+      getHistorico()
       .then((res) => setVisitas(res.data))
       .catch((err) => {
         console.error("Erro ao buscar visitas:", err);

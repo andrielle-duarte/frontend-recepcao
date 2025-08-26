@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import "./style.css";
-import LogoutButton from "../Logout/index";
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -19,6 +19,12 @@ export default function Navbar() {
     navigate("/historico");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="containerNavbar">
@@ -35,7 +41,7 @@ export default function Navbar() {
         <button onClick={irParaHistorico} className="btnVisitantes">
           Histórico
         </button>
-        <LogoutButton />
+        <button onClick={handleLogout}  className="btnVisitantes">Logout</button>
       </div>
     </>
   );
