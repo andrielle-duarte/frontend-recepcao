@@ -28,8 +28,6 @@ export default function HistoricoVisitas() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nome</th>
-              <th>Documento</th>
               <th>Motivo da Visita</th>
               <th>Data de entrada</th>
               <th>Data de saída</th>
@@ -39,8 +37,6 @@ export default function HistoricoVisitas() {
             {visitas.map((v, index) => (
               <tr key={index}>
                 <td>{v.id}</td>
-                <td>{v.nome_visitante}</td>
-                <td>{v.documento_visitante}</td>
                 <td>{v.motivo_visita}</td>
                 <td>{new Date(v.data_entrada).toLocaleString()}</td>
                 <td>

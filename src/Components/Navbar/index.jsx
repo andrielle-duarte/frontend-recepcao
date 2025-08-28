@@ -1,4 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
+import Logout from "../Logout";
 import "./style.css";
 
 
@@ -19,11 +20,7 @@ export default function Navbar() {
     navigate("/historico");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    navigate("/login");
-  };
+
 
   return (
     <>
@@ -41,7 +38,7 @@ export default function Navbar() {
         <button onClick={irParaHistorico} className="btnVisitantes">
           Histórico
         </button>
-        <button onClick={handleLogout}  className="btnVisitantes">Logout</button>
+        <Logout />
       </div>
     </>
   );

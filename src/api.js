@@ -4,14 +4,15 @@ const api = axios.create({
   baseURL: "http://localhost:8000",
 });
 
-// Adiciona token automaticamente
+const API_BASE = "http://localhost:8000";
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Tenta refresh token se access token expirar
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -47,10 +48,11 @@ export const createVisitor = (data) => api.post("/visitantes/", data);
 export const getVisitors = () => api.get("/visitantes/");
 export const registerExit = (id) => api.patch(`/visitantes/${id}/saida`);
 export const getHistorico = () => api.get("/visitas/historico/");
-export const getBuscarVisitante = () => api.get(`/visitantes/buscar?termo=${termoBusca}`);
+export const getBuscarVisitante = (termo) =>
+  `${API_BASE}/visitantes/buscar?termo=${encodeURIComponent(termo)}`;
 export const getHistoricoVisitas = (visitanteId) => api.get(`/visitas/historico/${visitanteId}`);
 export const alterarMotivo = (id, motivo) =>
-  api.put(`/visitantes/${id}/alterar-motivo`, { motivo_visita: motivo });
+  api.put(`/visitas/visitantes/${id}/alterar-motivo`, { motivo_visita: motivo });
 export const iniciarVisita = (visitanteId, motivo, dataEntrada) =>
   api.post("/visitas/", {
     visitante_id: Number(visitanteId),

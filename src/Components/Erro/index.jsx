@@ -8,10 +8,10 @@ export default function Erro() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div >
       <h1>Erro no login</h1>
       <p>Email ou senha inválidos. Tente novamente.</p>
-      <button onClick={handleVoltar} style={{ marginTop: "20px" }}>
+      <button onClick={handleVoltar} >
         Voltar ao login
       </button>
     </div>

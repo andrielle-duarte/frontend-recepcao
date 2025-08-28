@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
 import "./style.css";
 import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia";
-
-// importa funções centralizadas
 import { getAllVisitantes, getVisitantesAtivos, encerrarVisita as encerrarVisitaApi } from "../../api";
 
 function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }) {
@@ -42,14 +40,22 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
+  const [loading, setLoading] = useState(true);   // novo
+  const [error, setError] = useState(null);       // novo
   const navigate = useNavigate();
 
   const fetchVisitantes = async () => {
+    setLoading(true);
+    setError(null);
+
     try {
       const response = somenteAtivos ? await getVisitantesAtivos() : await getAllVisitantes();
       setVisitantes(response.data);
     } catch (error) {
       console.error("Erro ao carregar visitantes:", error);
+      setError("Erro ao carregar visitantes");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,19 +71,31 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   }, [somenteAtivos]);
 
   const handleEncerrarVisita = async (id) => {
+    setLoading(true); 
     try {
       await encerrarVisitaApi(id);
-      fetchVisitantes();
+      await fetchVisitantes();
     } catch (error) {
       console.error("Erro ao encerrar visita:", error);
+      setError("Erro ao encerrar visita");
+    } finally {
+      setLoading(false);
     }
   };
 
   const verHistorico = (visitanteId) => navigate(`/historico/${visitanteId}`);
 
+  if (loading) {
+    return <p>Carregando visitantes...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <div className="containerLista">
-      <h2> {somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"} </h2>
+      <h2>{somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"}</h2>
 
       {visitantes.length === 0 ? (
         <p>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</p>

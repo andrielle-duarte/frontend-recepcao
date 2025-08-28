@@ -1,30 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import { VisitanteResultadoRow } from "../../utils/visitanteResultadoRow";
 import { getBuscarVisitante } from "../../api";
 
 export default function BuscarResultado() {
   const location = useLocation();
+  const navigate = useNavigate();
   const termoBusca = location.state?.termoBusca || "";
+  const [loading, setLoading] = useState(true);
   const [resultados, setResultados] = useState([]);
+  const [error, setError] = useState(null);  
 
-  const buscarVisitantes = (termoBusca) => {
+  const buscarVisitantes = async (termoBusca) => {
+    setLoading(true); 
+    setError(null);   
+
     if (termoBusca) {
-      axios
-        getBuscarVisitante()
-        .then((response) => setResultados(response.data))
-        .catch((error) => {
-          console.error("Erro ao buscar visitantes", error);
-          alert("Erro ao buscar visitantes");
+      try {
+        console.log("URL chamada:", getBuscarVisitante(termoBusca));
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(getBuscarVisitante(termoBusca), {
+          headers: { Authorization: `Bearer ${token}` }
         });
+
+        setResultados(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error("Erro ao buscar visitantes", error);
+        setError("Erro ao buscar visitantes"); 
+      } finally {
+        setLoading(false); 
+      }
+    } else {
+      setResultados([]);
+      navigate("/")
+      
     }
   };
 
   useEffect(() => {
-    buscarVisitantes();
+    buscarVisitantes(termoBusca);
   }, [termoBusca]);
+
+  if (loading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className="containerResultados">
