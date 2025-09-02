@@ -1,6 +1,7 @@
 import { login } from "../../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Topo from "../Topo";
 
 import "./style.css";
 
@@ -36,28 +37,31 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div className="containerLogin">
-      <form className="conteudo" onSubmit={handleSubmit}>
-        <h2 className="titulo">Login</h2>
-        {erro && <p className="erro">{erro}</p>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          required
-        />
-        <button className="botaoLogin" type="submit" disabled={loading}>
-          {loading ? "Entrando..." : "Entrar"}
-        </button>
-      </form>
-    </div>
+    <>
+      <Topo />
+      <div className="containerLogin">
+        <form className="conteudo" onSubmit={handleSubmit}>
+          <h2 className="titulo">Login</h2>
+          {erro && <p className="erro">{erro}</p>}
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+          <button className="botaoLogin" type="submit" disabled={loading}>
+            {loading ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import React, { useState } from "react";
 
 import Home from "../Pages/Home";
@@ -22,7 +27,7 @@ export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const handleCadastro = () => setAtualizar(prev => !prev);
+  const handleCadastro = () => setAtualizar((prev) => !prev);
 
   return (
     <Router>
@@ -30,24 +35,82 @@ export default function App() {
         {token && (
           <>
             <Topo />
-            <Navbar />
+            <Navbar onLogout={setToken} /> {/* ✅ Passa o setToken como prop */}
           </>
         )}
         <Routes>
           {/* Login */}
-          {!token && <Route path="/login" element={<Login onLogin={setToken} />} />}
+          {!token && (
+            <Route path="/login" element={<Login onLogin={setToken} />} />
+          )}
 
           {/* Rotas protegidas */}
           {token && (
             <>
-              <Route path="/" element={<PrivateRoute token={token}><Home /></PrivateRoute>} />
-              <Route path="/visitantes" element={<PrivateRoute token={token}><VisitantesPage /></PrivateRoute>} />
-              <Route path="/ativos" element={<PrivateRoute token={token}><PainelAtivos atualizar={atualizar} /></PrivateRoute>} />
-              <Route path="/buscar" element={<PrivateRoute token={token}><BuscarVisitante /></PrivateRoute>} />
-              <Route path="/resultados" element={<PrivateRoute token={token}><BuscaResultado /></PrivateRoute>} />
-              <Route path="/cadastro" element={<PrivateRoute token={token}><FormVisitante onCadastro={handleCadastro} /></PrivateRoute>} />
-              <Route path="/historico/:id" element={<PrivateRoute token={token}><HistoricoVisitas /></PrivateRoute>} />
-              <Route path="/historico" element={<PrivateRoute token={token}><Historico /></PrivateRoute>} />
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute token={token}>
+                    <Home />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/visitantes"
+                element={
+                  <PrivateRoute token={token}>
+                    <VisitantesPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/ativos"
+                element={
+                  <PrivateRoute token={token}>
+                    <PainelAtivos atualizar={atualizar} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/buscar"
+                element={
+                  <PrivateRoute token={token}>
+                    <BuscarVisitante />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/resultados"
+                element={
+                  <PrivateRoute token={token}>
+                    <BuscaResultado />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cadastro"
+                element={
+                  <PrivateRoute token={token}>
+                    <FormVisitante onCadastro={handleCadastro} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/historico/:id"
+                element={
+                  <PrivateRoute token={token}>
+                    <HistoricoVisitas />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/historico"
+                element={
+                  <PrivateRoute token={token}>
+                    <Historico />
+                  </PrivateRoute>
+                }
+              />
             </>
           )}
 
