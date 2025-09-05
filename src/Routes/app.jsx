@@ -5,7 +5,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import React, { useState } from "react";
-
+import { useEffect } from "react";
+import keycloak from "../keycloak";
 import Home from "../Pages/Home";
 import VisitantesPage from "../Pages/VisitantePage";
 import BuscarVisitante from "../Components/BuscaVisitante";
@@ -23,11 +24,32 @@ import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const handleCadastro = () => setAtualizar((prev) => !prev);
+
+  // Atualiza token periodicamente
+  useEffect(() => {
+    const interval = setInterval(() => {
+      keycloak.updateToken(10).then(refreshed => {
+        if (refreshed) {
+          setToken(keycloak.token);
+          localStorage.setItem("token", keycloak.token);
+        }
+      }).catch(() => {
+        console.log("Token update failed");
+      });
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
+  const handleLogout = () => {
+    keycloak.logout();
+    setToken(null);
+    localStorage.removeItem("token");
+  };
 
   return (
     <Router>
@@ -35,7 +57,10 @@ export default function App() {
         {token && (
           <>
             <Topo />
-            <Navbar onLogout={setToken} /> {/* ✅ Passa o setToken como prop */}
+            <Navbar onLogout={handleLogout} />
+            <div>
+              {token ? <h1>Logado</h1> : <h1>Não logado</h1>}
+            </div>
           </>
         )}
         <Routes>
