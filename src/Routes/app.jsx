@@ -24,23 +24,24 @@ import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-
   // Atualiza token periodicamente
   useEffect(() => {
     const interval = setInterval(() => {
-      keycloak.updateToken(10).then(refreshed => {
-        if (refreshed) {
-          setToken(keycloak.token);
-          localStorage.setItem("token", keycloak.token);
-        }
-      }).catch(() => {
-        console.log("Token update failed");
-      });
+      keycloak
+        .updateToken(10)
+        .then((refreshed) => {
+          if (refreshed) {
+            setToken(keycloak.token);
+            localStorage.setItem("token", keycloak.token);
+          }
+        })
+        .catch(() => {
+          console.log("Token update failed");
+        });
     }, 6000);
 
     return () => clearInterval(interval);
@@ -50,6 +51,14 @@ export default function App() {
     setToken(null);
     localStorage.removeItem("token");
   };
+  const handleCadastro = async (dados) => {
+    try {
+      const response = await iniciarVisita(dados.visitanteId, dados.motivo);
+      console.log("Visita iniciada:", response.data);
+    } catch (error) {
+      console.error("Erro ao cadastrar ou iniciar visita:", error);
+    }
+  };
 
   return (
     <Router>
@@ -58,9 +67,7 @@ export default function App() {
           <>
             <Topo />
             <Navbar onLogout={handleLogout} />
-            <div>
-              {token ? <h1>Logado</h1> : <h1>Não logado</h1>}
-            </div>
+            <div>{token ? <h1>Logado</h1> : <h1>Não logado</h1>}</div>
           </>
         )}
         <Routes>

@@ -1,27 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./Routes/app"; 
-import "./index.css"
+import App from "./Routes/app";
+import "./index.css";
 import keycloak from "./keycloak";
 
-// Inicializa Keycloak
-keycloak.init({
-  onLoad: "login-required",
-  checkLoginIframe: false, // evita warnings de CSP/iframe
-}).then(authenticated => {
-  if (!authenticated) {
-    window.location.reload(); // força login
-    return;
-  }
+keycloak
+  .init({
+    onLoad: "login-required",
+    checkLoginIframe: false,
+  })
+  .then((authenticated) => {
+    if (!authenticated) {
+      window.location.reload();
+      return;
+    }
 
-  // Salva token
-  localStorage.setItem("token", keycloak.token);
+    localStorage.setItem("token", keycloak.token);
 
-  ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}).catch(err => {
-  console.error("Keycloak init failed", err);
-});
+    ReactDOM.createRoot(document.getElementById("root")).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  })
+  .catch((err) => {
+    console.error("Keycloak init failed", err);
+  });
