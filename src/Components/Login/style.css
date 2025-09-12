@@ -1,42 +1,33 @@
-.conteudo {
+
+.formLogin {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-}
-.titulo {
-  color: #4b4848;
-  display: flex;
   align-items: center;
   justify-content: center;
-}
-.botaoLogin {
-  color: #4b4848;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
+  border: #4b4848 solid 1px;
+  background-color: #ddf0d1;
+  gap: 15px;
+  padding: 30px;
   border-radius: 10px;
-  background-color: rgb(106, 237, 106);
-  cursor: pointer;
-}
-.botaoLogin:hover {
-  background-color: #dd6f6f;
-}
-
-.conteudo input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  width: 500px;
 }
 .containerLogin {
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
-  background-color: #4b4848;
-  width: 30%;
-  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; 
+    
+}
+
+
+
+.formLogin input:focus {
+  outline: none;
+  border: 2px solid #3b7a2f;
+  box-shadow: 0 0 5px rgba(59, 122, 47, 0.5);
+}
+.formLogin {
+  width: 90%;
+  max-width: 500px;
 }
