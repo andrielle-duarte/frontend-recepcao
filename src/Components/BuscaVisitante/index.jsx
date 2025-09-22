@@ -12,24 +12,26 @@ export default function FormBusca() {
     };
 
     return (
-        <form className="conteudo" onSubmit={(e) => e.preventDefault()}>
-            <h2 className="titulo">Iniciar visita</h2>
-            <input
-                type="text"
-                placeholder="Digite nome ou CPF"
-                value={termoBusca}
-                onChange={(e) => setTermoBusca(e.target.value)}
-            />
-            <button type="button" className="botaoBuscar" onClick={buscar}>
-                Buscar visitante
-            </button>
-            <button
-                type="button"
-                className="botaoBuscar"
-                onClick={() => navigate("/cadastro")}
-            >
-                Cadastrar novo visitante
-            </button>
-        </form>
+        <div className="containerBuscar">
+            <form className="conteudoBuscar" onSubmit={(e) => e.preventDefault()}>
+                <h2 className="titulo">Iniciar visita</h2>
+                <input
+                    type="text"
+                    placeholder="Digite nome ou CPF"
+                    value={termoBusca}
+                    onChange={(e) => setTermoBusca(e.target.value)}
+                />
+                <button type="button" className="botaoBuscar" onClick={buscar}>
+                    Buscar visitante
+                </button>
+                <button
+                    type="button"
+                    className="botaoBuscar"
+                    onClick={() => navigate("/cadastro")}
+                >
+                    Cadastrar novo visitante
+                </button>
+            </form>
+        </div>
     );
 }

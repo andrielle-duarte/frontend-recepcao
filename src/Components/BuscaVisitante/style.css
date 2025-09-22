@@ -1,18 +1,32 @@
+
+.containerBuscar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .conteudoBuscar {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 15px;
   padding: 30px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  max-width: 500px; 
+  width: 100%; 
+  box-sizing: border-box;
+  
 }
+
 .titulo {
   color: #4b4848;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .botaoBuscar {
   color: #4b4848;
   padding: 10px;
@@ -22,6 +36,7 @@
   background-color: rgb(106, 237, 106);
   cursor: pointer;
 }
+
 .botaoBuscar:hover {
   background-color: #dd6f6f;
 }
@@ -31,13 +46,4 @@
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-.containerBuscar {
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
-  background-color: #ffffff;
-  
-}
-.containerResultados {
-  margin-top: 50px;
 }
