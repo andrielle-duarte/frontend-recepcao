@@ -67,7 +67,7 @@ export default function App() {
           <>
             <Topo />
             <Navbar onLogout={handleLogout} />
-            <div>{token ? <h1>Logado</h1> : <h1>Não logado</h1>}</div>
+            
           </>
         )}
         <Routes>
