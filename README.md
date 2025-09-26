@@ -9,3 +9,10 @@ npm install
 # Como rodar
 
 npm run dev
+
+
+Formato do .env
+
+VITE_KEYCLOAK_URL=
+VITE_KEYCLOAK_REALM=
+VITE_KEYCLOAK_CLIENT_ID=
