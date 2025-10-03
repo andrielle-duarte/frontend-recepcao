@@ -21,7 +21,7 @@ export default function HistoricoVisitas() {
   }, [visitante]);
 
   return (
-    <div className="containerVisitas">
+    <>
       <h2>Historico de visitas - Visitante {visitante}</h2>
       {visitas.length > 0 ? (
         <table className="tabelaVisitas">
@@ -51,6 +51,6 @@ export default function HistoricoVisitas() {
       ) : (
         <p>Nenhum visitante encontrado.</p>
       )}
-    </div>
+    </>
   );
 }

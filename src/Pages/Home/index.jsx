@@ -11,13 +11,13 @@ export default function Home() {
     setAtualizar((prev) => !prev);
   };
   return (
-    <>
+    <div className="centralizarTudo">
       <div className="containerPrincipal">
         <div className="containerCadastrar">
           <FormBusca onCadastro={handleCadastro} />
           
         </div>
       </div>
-    </>
+    </ div>
   );
 }

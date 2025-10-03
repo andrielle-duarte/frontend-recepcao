@@ -26,6 +26,7 @@
   background-color: #dd6f6f;
 }
 
+
 .conteudo input {
   padding: 10px;
   font-size: 16px;
@@ -39,6 +40,15 @@
   border-radius: 15px;
   background-color: #4b4848;
   width: 30%;
-  margin: 20px;
-  
+  min-width: 320px;
+  max-width: 400px;
+  margin: 0; 
+}
+
+.centralizarTudo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh; 
+  width: 100vw; 
 }

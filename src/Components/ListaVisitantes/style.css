@@ -4,8 +4,9 @@ h4 {
   color: #333;
   flex-shrink: 0;
 }
+
 .tabelaVisitantes {
-  width: 1080px;
+  width: 90vw;
   border-collapse: collapse;
   margin: 25px;
   
@@ -44,17 +45,6 @@ table button {
 
 table button:hover {
   background-color: #d16d67;
-}
-.containerLista { 
-  width: 100%;
-  height: fit-content;
-  background-color: rgba(255, 255, 255, 0.01); 
-  padding: 0px 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); 
-  overflow-x: auto;
-  max-height: 70vh;
-  backdrop-filter: blur(3px); 
 }
 
 

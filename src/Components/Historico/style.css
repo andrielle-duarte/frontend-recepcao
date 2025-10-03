@@ -40,9 +40,10 @@ h2 {
 }
 .campo-data {
   padding: 5px;
-  margin: 10px;
-  text-align: center;
+  margin: 10px 25px ;
+  text-align: start;
   width: 100%;
+  
 }
 .btnHistorico {
   color: #4b4848;

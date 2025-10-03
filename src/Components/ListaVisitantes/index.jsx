@@ -40,8 +40,8 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
-  const [loading, setLoading] = useState(true);   // novo
-  const [error, setError] = useState(null);       // novo
+  const [loading, setLoading] = useState(true);   
+  const [error, setError] = useState(null);       
   const navigate = useNavigate();
 
   const fetchVisitantes = async () => {
@@ -94,14 +94,15 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   }
 
   return (
-    <div className="containerLista">
+    <>
       <h2>{somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"}</h2>
 
       {visitantes.length === 0 ? (
-        <p>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</p>
+        <h2>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</h2>
       ) : (
         <table className="tabelaVisitantes">
           <thead>
+            
             <tr>
               <th>ID</th>
               <th>Nome</th>
@@ -124,6 +125,6 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
           </tbody>
         </table>
       )}
-    </div>
+    </>
   );
 }

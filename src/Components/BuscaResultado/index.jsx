@@ -75,7 +75,7 @@ export default function BuscarResultado() {
           </tbody>
         </table>
       ) : (
-        <p>Nenhum visitante encontrado.</p>
+        <h2>Nenhum visitante encontrado.</h2>
       )}
     </div>
   );

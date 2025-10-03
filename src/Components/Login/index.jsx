@@ -5,6 +5,7 @@ import './style.css';
 function LoginButton() {
   const handleLogin = () => {
     keycloak.login();
+    console.log("Login realizado com sucesso!");
   };
 
   return (

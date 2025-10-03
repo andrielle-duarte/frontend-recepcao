@@ -33,7 +33,7 @@ export default function Historico() {
   });
 
   return (
-    <div className="containerVisitas">
+    <>
       <h2>Histórico de visitas</h2>
 
 
@@ -95,6 +95,6 @@ export default function Historico() {
       ) : (
         <p>Nenhum visitante encontrado.</p>
       )}
-    </div>
+    </>
   );
 }

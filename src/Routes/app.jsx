@@ -65,9 +65,8 @@ export default function App() {
       <ErrorBoundary>
         {token && (
           <>
-            <Topo />
-            <Navbar onLogout={handleLogout} />
-            
+            <Topo onLogout={handleLogout} />
+
           </>
         )}
         <Routes>

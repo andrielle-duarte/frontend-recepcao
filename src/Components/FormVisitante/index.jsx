@@ -80,7 +80,7 @@ export default function Home({ onCadastro }) {
 
 
   return (
-    <>
+    <div className="centralizarTudo">
       <div className="containerCadastrar">
         <form className="conteudo" onSubmit={handleSubmit(onSubmit)}>
           <h4 className="titulo">Cadastro de visitante</h4>
@@ -113,6 +113,6 @@ export default function Home({ onCadastro }) {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 }
