@@ -51,22 +51,16 @@ export default function App() {
     setToken(null);
     localStorage.removeItem("token");
   };
-  const handleCadastro = async (dados) => {
-    try {
-      const response = await iniciarVisita(dados.visitanteId, dados.motivo);
-      console.log("Visita iniciada:", response.data);
-    } catch (error) {
-      console.error("Erro ao cadastrar ou iniciar visita:", error);
-    }
+  const handleCadastro = (dados) => {
+    console.log("Visitante cadastrado", dados);
+    setAtualizar((prev) => !prev);
   };
-
   return (
     <Router>
       <ErrorBoundary>
         {token && (
           <>
             <Topo onLogout={handleLogout} />
-
           </>
         )}
         <Routes>
