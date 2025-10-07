@@ -24,6 +24,7 @@ import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -55,12 +56,14 @@ export default function App() {
     console.log("Visitante cadastrado", dados);
     setAtualizar((prev) => !prev);
   };
+  
   return (
     <Router>
       <ErrorBoundary>
         {token && (
           <>
-            <Topo onLogout={handleLogout} />
+            <Topo  />
+            <Navbar onLogout={handleLogout} />
           </>
         )}
         <Routes>

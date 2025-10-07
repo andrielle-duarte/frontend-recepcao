@@ -18,20 +18,19 @@
 
 
 .btnVisitantes {
-  margin: 10px;
-  color: #4b4848;
-  display: flex;
-  align-items: end;
-  justify-content: end;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
+   background-color: transparent; /* fundo transparente */
+  border: 2px solid rgb(106, 237, 106);
   border-radius: 10px;
-  background-color: rgb(106, 237, 106);
+  outline: none; /* remove o foco padrão */
+  padding: 10px 20px;
   cursor: pointer;
 }
+.btnVisitantes:focus {
+  outline: 3px dashed #4b4848; /* outline no foco, estilo tracejado */
+}
 .btnVisitantes:hover {
-  background-color: #dd6f6f;
+  border-radius: 10px;
+  background-color: rgb(106, 237, 106);
 }
 
 .centralizarTudo {

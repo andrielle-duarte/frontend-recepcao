@@ -1,8 +1,33 @@
 .containerNavbar {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: rgb(255, 255, 255);
-  justify-content: center;
-  padding-right: 300px;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.btnMenu {
+  display: inline-block;
+  background-color: transparent; /* fundo transparente */
+  border: 2px solid rgb(106, 237, 106);
+  outline: none; /* remove o foco padrão */
+  border-radius: 7px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.btnMenu:hover {
+  border-radius: 7px;
+  background-color: rgb(106, 237, 106);
+}
+.btnVisitantes:focus {
+  outline: 3px dashed #4b4848; /* outline no foco, estilo tracejado */
+}
+
+ul {
+  display: inline-block;
+  padding: 0;
+  margin: 20px;
+}
+li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 20px;
 }

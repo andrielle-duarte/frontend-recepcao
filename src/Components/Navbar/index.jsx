@@ -12,20 +12,26 @@ export default function Navbar({ onLogout }) {
 
   return (
     <div className="containerNavbar">
-      <button onClick={irParaBuscar} className="btnVisitantes">
+      <ul>
+        <li><button onClick={irParaBuscar} className="btnMenu">
         Iniciar visita
-      </button>
-      <button onClick={irParaAtivos} className="btnVisitantes">
+        </button>
+        </li>
+        <li><button onClick={irParaAtivos} className="btnMenu">
         Ativos
-      </button>
-      <button onClick={irParaLista} className="btnVisitantes">
+        </button>
+        </li>
+        <li><button onClick={irParaLista} className="btnMenu">
         Cadastrados
-      </button>
-      <button onClick={irParaHistorico} className="btnVisitantes">
+        </button>
+        </li>
+        <li><button onClick={irParaHistorico} className="btnMenu">
         Histórico
-      </button>
-
-      <Logout onLogout={onLogout} />
+        </button>
+        </li>
+        <li><Logout onLogout={onLogout} />
+        </li>
+      </ul>
     </div>
   );
 }
