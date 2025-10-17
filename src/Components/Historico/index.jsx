@@ -9,7 +9,7 @@ export default function Historico() {
   const [dataFim, setDataFim] = useState("");
 
   useEffect(() => {
-      getHistorico()
+    getHistorico()
       .then((res) => setVisitas(res.data))
       .catch((err) => {
         console.error("Erro ao buscar visitas:", err);
@@ -33,7 +33,7 @@ export default function Historico() {
   });
 
   return (
-    <>
+    <div className="containerHistorico">
       <h2>Histórico de visitas</h2>
 
 
@@ -80,14 +80,12 @@ export default function Historico() {
           <tbody>
             {visitasFiltradas.map((v, index) => (
               <tr key={index}>
-                <td>{v.id}</td>
-                <td>{v.nome}</td>
-                <td>{v.documento}</td>
-                <td>{v.motivo_visita}</td>
-                <td>{new Date(v.data_entrada).toLocaleString()}</td>
-                <td>
-                  {v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}
-                </td>
+                <td data-label="ID">{v.id}</td>
+                <td data-label="Nome">{v.nome}</td>
+                <td data-label="Documento">{v.documento}</td>
+                <td data-label="Motivo da Visita">{v.motivo_visita}</td>
+                <td data-label="Data de entrada">{new Date(v.data_entrada).toLocaleString()}</td>
+                <td data-label="Data de saída">{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
               </tr>
             ))}
           </tbody>
@@ -95,6 +93,6 @@ export default function Historico() {
       ) : (
         <p>Nenhum visitante encontrado.</p>
       )}
-    </>
+    </div>
   );
 }

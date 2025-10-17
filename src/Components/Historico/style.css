@@ -1,59 +1,158 @@
-.containerVisitas {
-  width: auto;
-  height: fit-content;
-  padding: 0px 10px;
-  border-radius: 10px;
-  overflow-x: hidden;
-  max-height: 70vh;
-  
-}
-.tabelaVisitas {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 25px;
-  
-}
-.tabelaVisitas th, .tabelaVisitas td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
-}
-.tabelaVisitas th {
-  background-color: rgb(106, 237, 106);
-  color: rgb(0, 0, 0);
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-.tabelaVisitas tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.tabelaVisitas tr:hover {
-  background-color: #e1f0ff;
-  cursor: default;
+.containerHistorico {
+  width: 95vw;
+  max-width: 1100px;
+  margin: 34px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 28px 0 rgba(40,90,60,0.10);
+  padding: 36px 22px 32px 22px;
 }
 h2 {
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 2rem;
+  color: #212c24;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0 0 18px 0;
   text-align: center;
+}
 
-}
 .campo-data {
-  padding: 5px;
-  margin: 10px 25px ;
-  text-align: start;
-  width: 100%;
-  
+  display: flex;
+  gap: 28px;
+  padding: 15px 1vw 10px 0;
+  margin: 0 0 18px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
+.campo-data label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #25603a;
+}
+
+.tabelaVisitas {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 1px 12px 0 rgba(50,90,60,0.08);
+  background: #f6fff9;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px auto 0 auto;
+}
+
+.tabelaVisitas th, .tabelaVisitas td {
+  padding: 14px 10px;
+  text-align: left;
+  font-size: 1.06rem;
+}
+
+.tabelaVisitas th {
+  background: linear-gradient(90deg,#72ef94 0%, #47de63 100%);
+  color: #215c32;
+  font-weight: 700;
+  border-bottom: 3px solid #b8eaaa;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.tabelaVisitas td {
+  background: #fff;
+  color: #343;
+  border-bottom: 1px solid #ebf7ec;
+}
+
+.tabelaVisitas tr:nth-child(even) td {
+  background: #f2fef6;
+}
+
+.tabelaVisitas tr {
+  transition: background 0.18s;
+}
+
+.tabelaVisitas tr:hover td {
+  background: #e0f9ec !important;
+}
+
 .btnHistorico {
-  color: #4b4848;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
+  background: linear-gradient(90deg,#72ef94 0%, #55d253 100%);
+  color: #244d28;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 17px;
+  box-shadow: 0 2px 6px 0 rgba(55,200,130,0.11);
   cursor: pointer;
+  transition: background 0.13s, color 0.13s, box-shadow 0.17s;
+  outline: none;
 }
 .btnHistorico:hover {
-  background-color: #dd6f6f;
+  background: #1acab7;
+  color: #fff;
+  box-shadow: 0 5px 12px 0 rgba(51,137,80,0.10);
+}
+
+/* Inputs de data */
+input[type="date"] {
+  background: #f2fef6;
+  border: 1.3px solid #b8eaaa;
+  border-radius: 7px;
+  padding: 7px 10px;
+  color: #244d28;
+  font-size: 1rem;
+  outline: none;
+  margin-left: 6px;
+}
+
+/* Responsividade table */
+@media (max-width: 900px) {
+  .containerHistorico {
+    width: 99vw;
+    padding: 20px 2vw;
+  }
+  .tabelaVisitas th, .tabelaVisitas td {
+    padding: 10px 5px;
+    font-size: 0.99rem;
+  }
+  h2 { font-size: 1.25rem; }
+}
+@media (max-width: 650px) {
+  .containerHistorico {
+    padding: 10px 0;
+    border-radius: 0;
+    margin-top: 12px;
+  }
+  .tabelaVisitas, .tabelaVisitas thead, .tabelaVisitas tbody, .tabelaVisitas th, .tabelaVisitas td, .tabelaVisitas tr {
+    display: block;
+    width: 100%;
+  }
+  .tabelaVisitas thead {
+    display: none;
+  }
+  .tabelaVisitas tr {
+    margin-bottom: 18px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px 0 rgba(50,90,60,0.08);
+    background: #fff;
+    padding: 10px 8px;
+  }
+  .tabelaVisitas td {
+    border: none;
+    padding: 6px 10px;
+    position: relative;
+    text-align: left;
+    font-size: 0.98rem;
+  }
+  .tabelaVisitas td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #195e32;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.91rem;
+  }
 }

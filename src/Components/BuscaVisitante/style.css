@@ -1,49 +1,78 @@
-
-.containerBuscar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .conteudoBuscar {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px 0 rgba(50,90,60,0.10);
+  padding: 38px 32px 32px 32px;
+  min-width: 350px;
+  max-width: 410px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  max-width: 500px; 
-  width: 100%; 
-  box-sizing: border-box;
-  
+  gap: 18px;
+  animation: aparecer 0.6s cubic-bezier(.4,0,.2,1) backwards;
+}
+
+@keyframes aparecer {
+  0% { opacity: 0; transform: scale(0.98) translateY(30px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
 }
 
 .titulo {
-  color: #4b4848;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #28582c;
+  text-align: center;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
 }
-
-.botaoBuscar {
-  color: #4b4848;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
-  cursor: pointer;
-}
-
-.botaoBuscar:hover {
-  background-color: #dd6f6f;
-}
-
 .conteudoBuscar input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.4px solid #c6ebd7;
+  padding: 13px 11px;
+  background: #f2fef6;
+  color: #222;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.conteudoBuscar input:focus {
+  border-color: #58c072;
+}
+
+/* Botões */
+.botaoBuscar {
+  border-radius: 8px;
+  border: none;
+  padding: 13px;
+  margin-top: 6px;
+  background: linear-gradient(90deg,#72ef94 0%, #55d253 100%);
+  color: #244d28;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 12px 0 rgba(50,90,60,0.08);
+}
+.botaoBuscar + .botaoBuscar {
+  background: #fff;
+  color: #288a43;
+  border: 2px solid #67e490;
+  margin-top: 0;
+}
+.botaoBuscar:hover, .botaoBuscar:focus {
+  background: #1acab7;
+  color: #fff;
+  box-shadow: 0 6px 18px 0 rgba(55,200,130,0.21);
+}
+
+@media (max-width: 480px) {
+  .conteudoBuscar {
+    min-width: 0;
+    max-width: 96vw;
+    padding: 18px 4vw;
+  }
+  .titulo {
+    font-size: 1.3rem;
+  }
 }

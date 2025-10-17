@@ -1,43 +1,9 @@
-.containerPrincipal {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  align-items: center;
-  padding: 50px;
-  gap: 50px;
-  width: 100%;
-  max-width: 900px;
-}
-.titulo {
-  color: #4b4848;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
-
-
-.btnVisitantes {
-   background-color: transparent; /* fundo transparente */
-  border: 2px solid rgb(106, 237, 106);
-  border-radius: 10px;
-  outline: none; /* remove o foco padrão */
-  padding: 10px 20px;
-  cursor: pointer;
-}
-.btnVisitantes:focus {
-  outline: 3px dashed #4b4848; /* outline no foco, estilo tracejado */
-}
-.btnVisitantes:hover {
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
-}
-
 .centralizarTudo {
   display: flex;
+  flex-direction: column;   
   align-items: center;
   justify-content: center;
-  height: 100vh; 
-  width: 100vw;  
+  min-height: 680px;
+
 }
 

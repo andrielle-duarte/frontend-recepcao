@@ -12,8 +12,8 @@ export default function Home() {
   };
   return (
     <div className="centralizarTudo">
-      <div className="containerPrincipal">
-        <div className="containerCadastrar">
+      <div >
+        <div >
           <FormBusca onCadastro={handleCadastro} />
           
         </div>

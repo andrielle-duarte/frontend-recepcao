@@ -14,7 +14,7 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
   const documentoVisitante = visitante.visitante?.documento ?? visitante.documento ?? "-";
 
   return (
-    <tr style={{ backgroundColor: somenteAtivos && passou24h ? "#f18e8eff" : "transparent" }}>
+    <tr className={somenteAtivos && passou24h ? "linha-alerta" : ""}>
       <td>{idVisitante}</td>
       <td>{nomeVisitante}</td>
       <td>{documentoVisitante}</td>
@@ -34,14 +34,15 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
         )}
       </td>
     </tr>
+
   );
 }
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
   const [tempoAtual, setTempoAtual] = useState(Date.now());
-  const [loading, setLoading] = useState(true);   
-  const [error, setError] = useState(null);       
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const fetchVisitantes = async () => {
@@ -71,7 +72,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   }, [somenteAtivos]);
 
   const handleEncerrarVisita = async (id) => {
-    setLoading(true); 
+    setLoading(true);
     try {
       await encerrarVisitaApi(id);
       await fetchVisitantes();
@@ -102,7 +103,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
       ) : (
         <table className="tabelaVisitantes">
           <thead>
-            
+
             <tr>
               <th>ID</th>
               <th>Nome</th>

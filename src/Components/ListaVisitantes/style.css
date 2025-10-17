@@ -1,60 +1,168 @@
-h4 {
+.containerAtivos {
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #fafafa;
+  padding-bottom: 30px;
+}
+
+.painelAtivos {
+  width: 95vw;
+  max-width: 1100px;
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 28px 0 rgba(40,90,60,0.10);
+  padding: 36px 22px 32px 22px;
+}
+
+h2 {
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 2rem;
+  color: #212c24;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0 0 18px 0;
   text-align: center;
-  margin-bottom: 15px;
-  color: #333;
-  flex-shrink: 0;
 }
 
 .tabelaVisitantes {
-  width: 90vw;
-  border-collapse: collapse;
-  margin: 25px;
-  
-}
-.tabelaVisitantes th, .tabelaVisitantes td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
-}
-.tabelaVisitantes th {
-  background-color: rgb(106, 237, 106);
-  color: rgb(0, 0, 0);
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-.tabelaVisitantes tr:nth-child(even) {
-  background-color: #f2f2f2;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 1px 12px 0 rgba(50,90,60,0.08);
+  background: #f6fff9;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.tabelaVisitantes tr:hover {
-  background-color: #e1f0ff;
-  cursor: default;
+.tabelaVisitantes th, .tabelaVisitantes td {
+  padding: 14px 10px;
+  text-align: left;
+  font-size: 1.06rem;
 }
-table button {
-  color: #4b4848;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
+
+.tabelaVisitantes th {
+  background: linear-gradient(90deg,#72ef94 0%, #47de63 100%);
+  color: #215c32;
+  font-weight: 700;
+  border-bottom: 3px solid #afefc7;
+}
+
+.tabelaVisitantes td {
+  background: #fff;
+}
+
+.tabelaVisitantes tr:nth-child(even) td {
+  background: #f2fef6;
+}
+
+.tabelaVisitantes tr {
+  transition: background 0.18s;
+}
+
+.tabelaVisitantes tr:hover td {
+  background: #e0f9ec !important;
+}
+
+.tabelaVisitantes tr.sob-alerta td {
+  background: #ffe1e1 !important; /* se quiser destacar linhas específicas além do inline */
+}
+
+.tabelaVisitantes tr td, .tabelaVisitantes tr th {
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #ebf7ec;
+}
+
+table button, .btnEncerrarVisita, .btnHistorico {
+  background: linear-gradient(90deg,#72ef94 0%, #55d253 100%);
+  color: #244d28;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 17px;
+  box-shadow: 0 2px 6px 0 rgba(55,200,130,0.11);
   cursor: pointer; 
   margin: 0 3px;
+  transition: background 0.13s, color 0.13s, box-shadow 0.17s;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btnEncerrarVisita:hover, .btnHistorico:hover {
+  background: #1acab7;
+  color: #fff;
+  box-shadow: 0 5px 12px 0 rgba(51,137,80,0.10);
 }
 
-table button:hover {
-  background-color: #d16d67;
+.linha-alerta td {
+  background-color: #ffe1e1 !important; 
 }
-
+.linha-alerta:hover td {
+  background-color: #ffd9d9 !important;
+}
 
 .spanAlerta {
   font-size: 11px;
   color: #f33636;
-  display: flex;
-  flex-direction: column;
   font-style: italic;
   padding-left: 5px;
   position: absolute;
+  margin-top: 3px;
 }
 
+/* Responsividade */
+@media (max-width: 900px) {
+  .painelAtivos {
+    width: 99vw;
+    padding: 20px 2vw;
+  }
+  .tabelaVisitantes th, .tabelaVisitantes td {
+    padding: 10px 5px;
+    font-size: 0.99rem;
+  }
+  h2 { font-size: 1.25rem; }
+}
+@media (max-width: 650px) {
+  .painelAtivos {
+    padding: 10px 0;
+    border-radius: 0;
+    margin-top: 12px;
+  }
+  .tabelaVisitantes, .tabelaVisitantes thead, .tabelaVisitantes tbody, .tabelaVisitantes th, .tabelaVisitantes td, .tabelaVisitantes tr {
+    display: block;
+    width: 100%;
+  }
+  .tabelaVisitantes thead {
+    display: none; /* esconde cabeçalho para mobile */
+  }
+  .tabelaVisitantes tr {
+    margin-bottom: 18px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px 0 rgba(50,90,60,0.08);
+    background: #fff;
+    padding: 10px 8px;
+  }
+  .tabelaVisitantes td {
+    border: none;
+    padding: 6px 10px;
+    position: relative;
+    text-align: left;
+    font-size: 0.98rem;
+  }
+  .tabelaVisitantes td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #195e32;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.91rem;
+  }
+}
