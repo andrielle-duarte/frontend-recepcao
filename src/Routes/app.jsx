@@ -23,6 +23,7 @@ import PrivateRoute from "../Components/PrivateRoute";
 import ErrorBoundary from "../Components/ErrorBoundary/errorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../Components/Rodape";
 
 
 export default function App() {
@@ -150,6 +151,7 @@ export default function App() {
         </Routes>
       </ErrorBoundary>
       <ToastContainer position="top-center" autoClose={3000} />
+      <Footer />
     </Router>
   );
 }

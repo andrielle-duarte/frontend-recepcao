@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 32px;
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 30;
 }
@@ -37,6 +37,7 @@
 }
 
 .btnMenu {
+  display: block;
   background: #fff;
   border: 2px solid #72e897;
   border-radius: 8px;
