@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import { VisitanteResultadoRow } from "../../utils/visitanteResultadoRow";
 import { getBuscarVisitante } from "../../api";
+import Swal from "sweetalert2";
 
 
 export default function BuscarResultado() {
@@ -13,6 +14,8 @@ export default function BuscarResultado() {
   const [loading, setLoading] = useState(true);
   const [resultados, setResultados] = useState([]);
   const [error, setError] = useState(null);
+
+
 
   const buscarVisitantes = async (termoBusca) => {
     setLoading(true);
@@ -31,7 +34,14 @@ export default function BuscarResultado() {
       } catch (error) {
         console.error("Erro ao buscar visitantes", error);
         setError("Erro ao buscar visitantes");
-      } finally {
+
+        Swal.fire({
+          icon: "error",
+          title: "Erro",
+          text: "Erro ao buscar visitantes: " + (error.response?.data?.detail || error.message)
+        });
+      }
+      finally {
         setLoading(false);
       }
     } else {

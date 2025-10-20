@@ -1,36 +1,65 @@
 import { useNavigate } from "react-router-dom";
 import { alterarMotivo, iniciarVisita } from "../api";
+import Swal from 'sweetalert2';
 
 export function VisitanteResultadoRow({ visitante, atualizarLista }) {
   const navigate = useNavigate();
 
+  const abrirModalMotivo = async () => {
+    let motivo = (visitante.motivo_visita || "").trim();
+
+    if (motivo) {
+      const { isConfirmed, value: novoMotivo } = await Swal.fire({
+        title: 'Motivo atual',
+        text: `Motivo atual: "${motivo}". Deseja alterar antes de iniciar a visita?`,
+        input: 'text',
+        inputValue: motivo,
+        showCancelButton: true,
+        confirmButtonText: 'Alterar',
+        cancelButtonText: 'Usar atual',
+        inputValidator: (value) => {
+          if (!value) {
+            return 'Você precisa digitar um motivo!';
+          }
+          return null;
+        }
+      });
+
+      if (isConfirmed && novoMotivo && novoMotivo !== motivo) {
+        await alterarMotivo(visitante.id, novoMotivo);
+        motivo = novoMotivo;
+      }
+    }
+    return motivo;
+  };
+
   const handleIniciarVisita = async () => {
     try {
-      let motivo = (visitante.motivo_visita || "").trim();
+      const motivoAtualizado = await abrirModalMotivo();
 
-      if (motivo) {
-        const desejaAlterar = window.confirm(
-          `Motivo atual: "${motivo}". Deseja alterar antes de iniciar a visita?`
-        );
-        if (desejaAlterar) {
-          const novoMotivo = (prompt("Digite o novo motivo:", motivo) || "").trim();
-          if (novoMotivo && novoMotivo !== motivo) {
-            await alterarMotivo(visitante.id, novoMotivo);
-            motivo = novoMotivo;
-          }
-        }
-      }
+      await iniciarVisita(visitante.id, motivoAtualizado);
 
-      await iniciarVisita(visitante.id, motivo);
-      // toast.success("Visita iniciada com sucesso!");
-      alert("Visita iniciada com sucesso!");
+      await Swal.fire({
+        icon: 'success',
+        title: 'Sucesso',
+        text: 'Visita iniciada com sucesso!',
+      });
+
       atualizarLista?.();
     } catch (error) {
       if (error?.response?.status === 400) {
-        alert(error.response.data?.detail || "Requisição inválida.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: error.response.data?.detail || 'Requisição inválida.'
+        });
       } else {
         console.error("Erro ao iniciar visita:", error);
-        alert("Erro inesperado ao iniciar visita.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: 'Erro inesperado ao iniciar visita.'
+        });
       }
     }
   };
@@ -44,14 +73,12 @@ export function VisitanteResultadoRow({ visitante, atualizarLista }) {
       <td>{visitante.documento}</td>
       <td data-label="Ações">
         <div className="acoes-row">
-          <button className="btnIniciar" onClick={handleIniciarVisita}>
-            Iniciar visita
-          </button>
+          <button onClick={handleIniciarVisita}>Iniciar visita</button>
           <button className="btnHistorico" onClick={verHistorico}>
             Histórico
           </button>
         </div>
       </td>
-    </tr >
+    </tr>
   );
 }

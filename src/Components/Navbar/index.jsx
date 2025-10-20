@@ -7,7 +7,6 @@ export default function Navbar({ onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Para fechar o menu ao clicar em um item no mobile
   const handleNav = (fn) => {
     fn();
     setMenuOpen(false);
@@ -15,7 +14,6 @@ export default function Navbar({ onLogout }) {
 
   return (
     <nav className="containerNavbar">
-      
       <button
         className="navbar-hamburger"
         aria-label="Abrir menu"
