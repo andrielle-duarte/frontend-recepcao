@@ -1,9 +1,10 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import { VisitanteResultadoRow } from "../../utils/visitanteResultadoRow";
 import { getBuscarVisitante } from "../../api";
+
 
 export default function BuscarResultado() {
   const location = useLocation();
@@ -11,11 +12,11 @@ export default function BuscarResultado() {
   const termoBusca = location.state?.termoBusca || "";
   const [loading, setLoading] = useState(true);
   const [resultados, setResultados] = useState([]);
-  const [error, setError] = useState(null);  
+  const [error, setError] = useState(null);
 
   const buscarVisitantes = async (termoBusca) => {
-    setLoading(true); 
-    setError(null);   
+    setLoading(true);
+    setError(null);
 
     if (termoBusca) {
       try {
@@ -29,14 +30,14 @@ export default function BuscarResultado() {
         setResultados(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Erro ao buscar visitantes", error);
-        setError("Erro ao buscar visitantes"); 
+        setError("Erro ao buscar visitantes");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     } else {
       setResultados([]);
       navigate("/")
-      
+
     }
   };
 
@@ -54,29 +55,31 @@ export default function BuscarResultado() {
 
   return (
     <div className="containerResultados">
-      {resultados.length > 0 ? (
-        <table className="tabelaVisitantes">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Documento</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resultados.map((v) => (
-              <VisitanteResultadoRow
-                key={v.id}
-                visitante={v}
-                atualizarLista={buscarVisitantes}
-              />
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <h2>Nenhum visitante encontrado.</h2>
-      )}
+      <div className="painelResultados">
+        {resultados.length > 0 ? (
+          <table className="tabelaVisitantes">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Documento</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resultados.map((v) => (
+                <VisitanteResultadoRow
+                  key={v.id}
+                  visitante={v}
+                  atualizarLista={buscarVisitantes}
+                />
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <h2>Nenhum visitante encontrado.</h2>
+        )}
+      </div>
     </div>
   );
 }

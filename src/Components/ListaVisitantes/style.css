@@ -1,21 +1,20 @@
-.containerAtivos {
+.containerCadastrados {
   width: 100vw;
   min-height: 80vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  background: #fafafa;
   padding-bottom: 30px;
 }
 
-.painelAtivos {
+.painelCadastrados {
   width: 95vw;
-  max-width: 1100px;
+  max-width: 1800px;
   margin-top: 30px;
-  background: #fff;
+  
   border-radius: 18px;
   box-shadow: 0 6px 28px 0 rgba(40,90,60,0.10);
-  padding: 36px 22px 32px 22px;
+  padding: 10px 15px;
 }
 
 h2 {
@@ -69,7 +68,7 @@ h2 {
 }
 
 .tabelaVisitantes tr.sob-alerta td {
-  background: #ffe1e1 !important; /* se quiser destacar linhas específicas além do inline */
+  background: #ffe1e1 !important; 
 }
 
 .tabelaVisitantes tr td, .tabelaVisitantes tr th {
@@ -141,7 +140,7 @@ table button, .btnEncerrarVisita, .btnHistorico {
     width: 100%;
   }
   .tabelaVisitantes thead {
-    display: none; /* esconde cabeçalho para mobile */
+    display: none; 
   }
   .tabelaVisitantes tr {
     margin-bottom: 18px;

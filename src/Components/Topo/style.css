@@ -4,10 +4,9 @@ img {
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* logo e Navbar ficam nas extremidades */
-  background-color: rgb(255, 255, 255);
+  justify-content: flex-start;
   height: 90px;
   border-bottom: 1px solid forestgreen;
   width: 100%;
-  padding: 0 20px; /* espaço interno nas laterais */
+  padding: 0 20px;
 }

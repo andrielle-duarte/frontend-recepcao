@@ -1,41 +1,125 @@
 .containerResultados {
-  width: 100%;
-  display: inline;
-  flex-direction: row;
-  justify-content: flex-start;
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
   align-items: flex-start;
-}
-
-.btnIniciar{
-  color: #4b4848;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
-  cursor: pointer; 
-  margin: 0 3px;
-}
-
-.btnIniciar:hover {
-  background-color: #dd6f6f;
-}
-.tabelaVisitantes input {
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid #685f5f;
-  border-radius: 5px;
-  width: 100%;
-}
-
-.btnVoltar {
-  margin: 10px;
-  color: #4b4848;
+  justify-content: center;
   
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: rgb(106, 237, 106);
-  cursor: pointer;
+  padding-bottom: 30px; 
+}
+
+.painelResultados {
+  width: 95vw;
+  max-width: 1800px;
+  margin-top: 20px;
+  
+  border-radius: 18px;
+  box-shadow: 0 6px 28px 0 rgba(40,90,60,0.10);
+  padding: 32px 18px 24px 18px;
+}
+
+.tabelaVisitantes {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 1px 12px 0 rgba(50,90,60,0.08);
+  background: #f6fff9;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.tabelaVisitantes th, .tabelaVisitantes td {
+  padding: 14px 10px;
+  text-align: left;
+  font-size: 1.06rem;
+}
+
+.tabelaVisitantes th {
+  background: linear-gradient(90deg,#72ef94 0%, #47de63 100%);
+  color: #215c32;
+  font-weight: 700;
+  border-bottom: 3px solid #afefc7;
+}
+
+.tabelaVisitantes td {
+  background: #fff;
+}
+
+.tabelaVisitantes tr:nth-child(even) td {
+  background: #f2fef6;
+}
+
+.tabelaVisitantes tr {
+  transition: background 0.18s;
+}
+
+.tabelaVisitantes tr:hover td {
+  background: #e0f9ec !important;
+}
+
+.tabelaVisitantes tr td, .tabelaVisitantes tr th {
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #ebf7ec;
+}
+.acoes-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;         /* espaçamento entre botões */
+  flex-wrap: wrap;  /* mantém lado a lado, mas quebra para baixo se não couber em telas pequenas */
+}
+
+
+
+
+/* Responsividade do mesmo padrão dos paineis */
+@media (max-width: 900px) {
+  .painelResultados {
+    width: 99vw;
+    padding: 20px 2vw;
+  }
+  .tabelaVisitantes th, .tabelaVisitantes td {
+    padding: 10px 5px;
+    font-size: 0.99rem;
+  }
+  h2 { font-size: 1.25rem; }
+}
+@media (max-width: 650px) {
+  .painelResultados {
+    padding: 10px 0;
+    border-radius: 0;
+    margin-top: 12px;
+  }
+  .tabelaVisitantes, .tabelaVisitantes thead, .tabelaVisitantes tbody, .tabelaVisitantes th, .tabelaVisitantes td, .tabelaVisitantes tr {
+    display: block;
+    width: 100%;
+  }
+  .tabelaVisitantes thead {
+    display: none;
+  }
+  .tabelaVisitantes tr {
+    margin-bottom: 18px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px 0 rgba(50,90,60,0.08);
+    background: #fff;
+    padding: 10px 8px;
+  }
+  .tabelaVisitantes td {
+    border: none;
+    padding: 6px 10px;
+    position: relative;
+    text-align: left;
+    font-size: 0.98rem;
+  }
+
+  .tabelaVisitantes td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #195e32;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.91rem;
+  }
 }

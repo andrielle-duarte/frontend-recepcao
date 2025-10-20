@@ -9,6 +9,7 @@ export default function HistoricoVisitas() {
   let visitante = params.id;
 
   const [visitas, setVisitas] = useState([]);
+  const nomeVisitante = visitas.length > 0 ? visitas[0].visitante?.nome || "" : ""
 
   useEffect(() => {
     axios
@@ -21,36 +22,35 @@ export default function HistoricoVisitas() {
   }, [visitante]);
 
   return (
-    <>
-      <h2>Historico de visitas - Visitante {visitante}</h2>
-      {visitas.length > 0 ? (
-        <table className="tabelaVisitas">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Motivo da Visita</th>
-              <th>Data de entrada</th>
-              <th>Data de saída</th>
-            </tr>
-          </thead>
-          <tbody>
-            {visitas.map((v, index) => (
-              <tr key={index}>
-                <td>{v.id}</td>
-                <td>{v.motivo_visita}</td>
-                <td>{new Date(v.data_entrada).toLocaleString()}</td>
-                <td>
-                  {v.data_saida
-                    ? new Date(v.data_saida).toLocaleString()
-                    : ""}
-                </td>
+    <div className="containerVisitas">
+      <div className="painelVisitas">
+        <h2>Histórico de {nomeVisitante} </h2>
+        {visitas.length > 0 ? (
+          <table className="tabelaVisitas">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Motivo da Visita</th>
+                <th>Data de entrada</th>
+                <th>Data de saída</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>Nenhum visitante encontrado.</p>
-      )}
-    </>
+            </thead>
+            <tbody>
+              {visitas.map((v, index) => (
+                <tr key={index}>
+                  <td>{v.id}</td>
+                  <td>{v.motivo_visita}</td>
+                  <td>{new Date(v.data_entrada).toLocaleString()}</td>
+                  <td>{v.data_saida ? new Date(v.data_saida).toLocaleString() : ""}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Nenhuma visita encontrada.</p>
+        )}
+      </div>
+    </div>
+
   );
 }

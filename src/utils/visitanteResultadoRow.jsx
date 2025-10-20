@@ -42,14 +42,16 @@ export function VisitanteResultadoRow({ visitante, atualizarLista }) {
       <td>{visitante.id}</td>
       <td>{visitante.nome}</td>
       <td>{visitante.documento}</td>
-      <td>
-        <button className="btnIniciar" onClick={handleIniciarVisita}>
-          Iniciar visita
-        </button>
-        <button className="btnHistorico" onClick={verHistorico}>
-          Histórico
-        </button>
+      <td data-label="Ações">
+        <div className="acoes-row">
+          <button className="btnIniciar" onClick={handleIniciarVisita}>
+            Iniciar visita
+          </button>
+          <button className="btnHistorico" onClick={verHistorico}>
+            Histórico
+          </button>
+        </div>
       </td>
-    </tr>
+    </tr >
   );
 }

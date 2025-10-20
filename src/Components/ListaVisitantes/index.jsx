@@ -13,14 +13,17 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
   const nomeVisitante = visitante.visitante?.nome ?? visitante.nome ?? "-";
   const documentoVisitante = visitante.visitante?.documento ?? visitante.documento ?? "-";
 
+  // Define class dinâmica (linha-alerta para +24h, nada para o resto)
+  const rowClass = somenteAtivos && passou24h ? "linha-alerta" : "";
+
   return (
-    <tr className={somenteAtivos && passou24h ? "linha-alerta" : ""}>
-      <td>{idVisitante}</td>
-      <td>{nomeVisitante}</td>
-      <td>{documentoVisitante}</td>
-      {somenteAtivos && <td>{visitante.motivo_visita || "-"}</td>}
-      {somenteAtivos && <td>{tempoFormatado}</td>}
-      <td>
+    <tr className={rowClass}>
+      <td data-label="ID">{idVisitante}</td>
+      <td data-label="Nome">{nomeVisitante}</td>
+      <td data-label="Documento">{documentoVisitante}</td>
+      {somenteAtivos && <td data-label="Motivo">{visitante.motivo_visita || "-"}</td>}
+      {somenteAtivos && <td data-label="Tempo de permanência">{tempoFormatado}</td>}
+      <td data-label="Ações">
         {somenteAtivos ? (
           !visitante.data_saida && (
             <button className="btnEncerrarVisita" onClick={() => encerrarVisita(visitante.id)}>
@@ -34,9 +37,9 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
         )}
       </td>
     </tr>
-
   );
 }
+
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
@@ -95,7 +98,8 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   }
 
   return (
-    <>
+    <div className="containerCadastrados">
+      <div className="painelCadastrados">
       <h2>{somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"}</h2>
 
       {visitantes.length === 0 ? (
@@ -126,6 +130,7 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
           </tbody>
         </table>
       )}
-    </>
+    </div>
+    </div>
   );
 }

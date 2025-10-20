@@ -6,11 +6,8 @@ import "./style.css"
 export default function PainelAtivos({ atualizar }) {
 
   return (
-    <div className="containerAtivos">
-      <div className="painelAtivos">
+    <div>
         <ListaVisitantes atualizar={atualizar} somenteAtivos={true} />
       </div>
-      
-    </div>
   );
 }
