@@ -112,7 +112,7 @@ input[type="date"] {
   margin-left: 6px;
 }
 
-
+/* Responsividade */
 @media (max-width: 900px) {
   .containerHistorico {
     width: 99vw;

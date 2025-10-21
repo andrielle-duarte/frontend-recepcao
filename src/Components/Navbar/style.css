@@ -71,23 +71,25 @@
   color: #195e32;
 }
 
-/* RESTAURA O MENU MOBILE (abaixo de 680px) */
+
 @media (max-width: 680px) {
   .containerNavbar {
     padding: 10px 7vw;
+    
   }
   .navbar-hamburger {
-    display: flex; /* aparece só no mobile */
+    display: flex; 
+    
   }
   .navbar-menu {
     position: absolute;
     top: 53px; left: 0; right: 0;
-    
+    background: linear-gradient(120deg, #ecf8f2 0%);
     box-shadow: 0 4px 24px 0 rgba(55,200,130,0.08);
-    flex-direction: column; /* botões um abaixo do outro */
+    flex-direction: column; 
     gap: 8px;
     padding: 16px 0 12px 0;
-    display: none; /* só aparece se menuOpen: true */
+    display: none; 
     z-index: 900;
     min-width: 100vw;
     border-bottom-left-radius: 15px;
@@ -113,11 +115,12 @@
   }
 }
 
-/* Menu e buttons menores para telas bem pequenas */
+
 @media (max-width: 420px) {
   .btnMenu {
     font-size: 13px;
     padding: 9px 10px;
     max-width: 98vw;
+    background: linear-gradient(120deg, #ecf8f2 0%, #ffffff 100%);
   }
 }

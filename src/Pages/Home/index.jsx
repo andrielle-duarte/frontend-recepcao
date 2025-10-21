@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="centralizarTudo">
       <div >
-        <div >
+        <div className="containerBuscar">
           <FormBusca onCadastro={handleCadastro} />
           
         </div>

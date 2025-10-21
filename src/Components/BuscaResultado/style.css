@@ -67,14 +67,14 @@
 .acoes-row {
   display: flex;
   align-items: center;
-  gap: 8px;         /* espaçamento entre botões */
-  flex-wrap: wrap;  /* mantém lado a lado, mas quebra para baixo se não couber em telas pequenas */
+  gap: 8px;        
+  flex-wrap: wrap;  
 }
 
 
 
 
-/* Responsividade do mesmo padrão dos paineis */
+/* Responsividade */
 @media (max-width: 900px) {
   .painelResultados {
     width: 99vw;

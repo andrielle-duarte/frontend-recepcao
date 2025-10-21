@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./style.css"; 
 
 export default function Sucesso() {
   const navigate = useNavigate();
@@ -10,13 +11,14 @@ export default function Sucesso() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Login realizado com sucesso!</h1>
-      <p>Bem-vindo(a) ao sistema de recepção.</p>
-      <button onClick={handleLogout} style={{ marginTop: "20px" }}>
-        Logout
-      </button>
+    <div className="sucesso-container">
+      <div className="sucesso-card">
+        <h1>Login realizado com sucesso!</h1>
+        <p>Bem-vindo(a) ao sistema de recepção.</p>
+        <button className="sucesso-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
-

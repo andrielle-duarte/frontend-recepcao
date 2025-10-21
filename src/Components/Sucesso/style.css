@@ -1,0 +1,59 @@
+.sucesso-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6faf7;
+}
+
+.sucesso-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 18px 0 rgba(34, 66, 55, 0.09);
+  padding: 32px 28px 28px 28px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  border-top: 5px solid #3d7e4f;
+}
+
+.sucesso-card h1 {
+  color: #236935; 
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+}
+
+.sucesso-card p {
+  color: #2d3a2a;
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.sucesso-btn {
+  background: #3d7e4f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 9px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sucesso-btn:hover, .sucesso-btn:focus {
+  background: #295c37;
+}
+
+@media (max-width: 500px) {
+  .sucesso-card {
+    padding: 20px 8px;
+    max-width: 94vw;
+  }
+  .sucesso-card h1 {
+    font-size: 1.2rem;
+  }
+  .sucesso-btn {
+    width: 100%;
+    padding: 12px 0;
+  }
+}

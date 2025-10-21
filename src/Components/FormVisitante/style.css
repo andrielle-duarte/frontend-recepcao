@@ -45,6 +45,7 @@
   margin: 0; 
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
   .containerCadastrar {
     width: 70%;

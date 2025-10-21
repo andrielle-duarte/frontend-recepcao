@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "./style.css";
 import axios from "axios";
 
-// Validação com Yup
+// Validação com Yup do formulário
 const schema = yup
   .object({
     nome: yup.string().required("Campo obrigatório"),
@@ -46,7 +46,7 @@ export default function Home({ onCadastro }) {
 
     const visitante = visitanteResponse.data;
 
-    // 2. Iniciar a visita com o ID do visitante retornado
+    // Iniciar a visita com o ID do visitante retornado
     const visitaData = {
       visitante_id: visitante.id,
       motivo_visita: visitante.motivo_visita,
