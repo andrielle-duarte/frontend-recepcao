@@ -2,40 +2,57 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
 import "./style.css";
-import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia";
 import { getAllVisitantes, getVisitantesAtivos, encerrarVisita as encerrarVisitaApi } from "../../api";
+import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 
 function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico, atualizarLista }) {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("Por favor, faça login novamente.");
-    return null; 
+    return null;
   }
   const decoded = jwtDecode(token);
-  const isAdmin = decoded?.realm_access?.roles?.includes("admin");  
+  const isAdmin = decoded?.realm_access?.roles?.includes("admin");
 
-  const handleDelete = async () => {   
-    if (!window.confirm(`Deseja realmente apagar o visitante ${visitante.nome}?`)) return;
+  const handleDelete = async () => {
+    const resultado = await Swal.fire({
+      title: `Deseja realmente apagar o visitante ${visitante.nome}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Apagar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+    });
+
+    if (!resultado.isConfirmed) return;
+
     try {
       const response = await fetch(`http://localhost:8000/visitantes/${visitante.id}`, {
         method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        alert("Erro ao apagar: " + errorData.detail);
+        Swal.fire("Erro", `Erro ao apagar: ${errorData.detail}`, "error");
         return;
       }
-      alert("Visitante apagado com sucesso.");
+
+      Swal.fire(
+        "Apagado!",
+        `Visitante ${visitante.nome} foi apagado pelo admin ${decoded.preferred_username}.`,
+        "success"
+      );
+
       atualizarLista();
     } catch (error) {
       console.error(error);
-      alert("Erro inesperado ao apagar.");
+      Swal.fire("Erro", "Erro inesperado ao apagar visitante.", "error");
     }
   };
 
@@ -72,6 +89,9 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico, 
     </tr>
   );
 }
+
+
+
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
