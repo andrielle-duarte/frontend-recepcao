@@ -4,8 +4,41 @@ import { IoMdExit } from "react-icons/io";
 import "./style.css";
 import { calcularTempoPermanencia } from "../../utils/calcularTempoPermanencia";
 import { getAllVisitantes, getVisitantesAtivos, encerrarVisita as encerrarVisitaApi } from "../../api";
+import { jwtDecode } from "jwt-decode";
 
-function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }) {
+function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico, atualizarLista }) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Por favor, faça login novamente.");
+    return null; 
+  }
+  const decoded = jwtDecode(token);
+  const isAdmin = decoded?.realm_access?.roles?.includes("admin");  
+
+  const handleDelete = async () => {   
+    if (!window.confirm(`Deseja realmente apagar o visitante ${visitante.nome}?`)) return;
+    try {
+      const response = await fetch(`http://localhost:8000/visitantes/${visitante.id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert("Erro ao apagar: " + errorData.detail);
+        return;
+      }
+      alert("Visitante apagado com sucesso.");
+      atualizarLista();
+    } catch (error) {
+      console.error(error);
+      alert("Erro inesperado ao apagar.");
+    }
+  };
+
   const { tempoFormatado, totalMs } = calcularTempoPermanencia(visitante.data_entrada);
   const passou24h = totalMs > 24 * 60 * 60 * 1000;
 
@@ -13,7 +46,6 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
   const nomeVisitante = visitante.visitante?.nome ?? visitante.nome ?? "-";
   const documentoVisitante = visitante.visitante?.documento ?? visitante.documento ?? "-";
 
-  // Define class dinâmica (linha-alerta para +24h, nada para o resto)
   const rowClass = somenteAtivos && passou24h ? "linha-alerta" : "";
 
   return (
@@ -31,15 +63,15 @@ function VisitanteRow({ visitante, somenteAtivos, encerrarVisita, verHistorico }
             </button>
           )
         ) : (
-          <button className="btnHistorico" onClick={() => verHistorico(visitante.id)}>
-            Histórico
-          </button>
+          <div className="acoes-row">
+            <button className="btnHistorico" onClick={() => verHistorico(visitante.id)}>Histórico</button>
+            {isAdmin && <button className="btnApagar" onClick={handleDelete}>Apagar</button>}
+          </div>
         )}
       </td>
     </tr>
   );
 }
-
 
 export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   const [visitantes, setVisitantes] = useState([]);
@@ -100,37 +132,37 @@ export default function ListaVisitantes({ atualizar, somenteAtivos = false }) {
   return (
     <div className="containerCadastrados">
       <div className="painelCadastrados">
-      <h2>{somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"}</h2>
+        <h2>{somenteAtivos ? "Visitantes Ativos" : "Visitantes cadastrados"}</h2>
 
-      {visitantes.length === 0 ? (
-        <h2>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</h2>
-      ) : (
-        <table className="tabelaVisitantes">
-          <thead>
-
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Documento</th>
-              {somenteAtivos && <th>Motivo</th>}
-              {somenteAtivos && <th>Tempo de permanência</th>}
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {visitantes.map((v) => (
-              <VisitanteRow
-                key={v.id}
-                visitante={v}
-                somenteAtivos={somenteAtivos}
-                encerrarVisita={handleEncerrarVisita}
-                verHistorico={verHistorico}
-              />
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+        {visitantes.length === 0 ? (
+          <h2>Nenhum visitante {somenteAtivos ? "ativo" : "cadastrado"}.</h2>
+        ) : (
+          <table className="tabelaVisitantes">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Documento</th>
+                {somenteAtivos && <th>Motivo</th>}
+                {somenteAtivos && <th>Tempo de permanência</th>}
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visitantes.map((v) => (
+                <VisitanteRow
+                  key={v.id}
+                  visitante={v}
+                  somenteAtivos={somenteAtivos}
+                  encerrarVisita={handleEncerrarVisita}
+                  verHistorico={verHistorico}
+                  atualizarLista={fetchVisitantes}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

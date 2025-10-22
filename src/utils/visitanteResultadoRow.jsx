@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { alterarMotivo, iniciarVisita } from "../api";
 import Swal from 'sweetalert2';
 
+
+
+
 export function VisitanteResultadoRow({ visitante, atualizarLista }) {
+  //console.log("VisitanteResultadoRow renderizado", visitante); CHECANDO RENDERIZAÇÃO
   const navigate = useNavigate();
 
   const abrirModalMotivo = async () => {
@@ -66,6 +70,7 @@ export function VisitanteResultadoRow({ visitante, atualizarLista }) {
 
   const verHistorico = () => navigate(`/historico/${visitante.id}`);
 
+
   return (
     <tr>
       <td>{visitante.id}</td>
@@ -77,6 +82,8 @@ export function VisitanteResultadoRow({ visitante, atualizarLista }) {
           <button className="btnHistorico" onClick={verHistorico}>
             Histórico
           </button>
+          
+
         </div>
       </td>
     </tr>

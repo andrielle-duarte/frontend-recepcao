@@ -95,6 +95,28 @@ table button, .btnEncerrarVisita, .btnHistorico {
   align-items: center;
   gap: 6px;
 }
+.btnApagar {
+  background: linear-gradient(90deg,#e78d8d 0%, #f53636 100%);
+  color: #244d28;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 17px;
+  box-shadow: 0 2px 6px 0 rgba(55,200,130,0.11);
+  cursor: pointer; 
+  margin: 0 3px;
+  transition: background 0.13s, color 0.13s, box-shadow 0.17s;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btnApagar:hover {
+  background: #caa658;
+  color: #fff;
+  box-shadow: 0 5px 12px 0 rgba(255,50,50,0.10);
+}
 .btnEncerrarVisita:hover, .btnHistorico:hover {
   background: #1acab7;
   color: #fff;
