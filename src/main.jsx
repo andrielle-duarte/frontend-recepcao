@@ -5,7 +5,7 @@ import "./index.css";
 import keycloak from "./keycloak";
 
 
-keycloak.init({ onLoad: "check-sso", promiseType: "native" })
+keycloak.init({ onLoad: "login-required", promiseType: "native"})
   .then(authenticated => {
     if (authenticated) {
       localStorage.setItem("token", keycloak.token);
