@@ -4,8 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import keycloak from "../keycloak";
 import Home from "../Pages/Home";
 import VisitantesPage from "../Pages/VisitantePage";
@@ -25,12 +24,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../Components/Rodape";
 
-
 export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  // Atualiza token periodicamente
   useEffect(() => {
     const interval = setInterval(() => {
       keycloak
@@ -48,110 +45,117 @@ export default function App() {
 
     return () => clearInterval(interval);
   }, []);
+
   const handleLogout = () => {
     keycloak.logout();
     setToken(null);
     localStorage.removeItem("token");
   };
+
   const handleCadastro = (dados) => {
     console.log("Visitante cadastrado", dados);
     setAtualizar((prev) => !prev);
   };
-  
+
   return (
     <Router>
-      <ErrorBoundary>
-        {token && (
-          <>
-            <Topo  />
-            <Navbar onLogout={handleLogout} />
-          </>
-        )}
-        <Routes>
-          {/* Login */}
-          {!token && (
-            <Route path="/login" element={<Login onLogin={setToken} />} />
-          )}
-
-          {/* Rotas protegidas */}
+      <div className="app-root">
+        <ErrorBoundary>
           {token && (
             <>
-              <Route
-                path="/"
-                element={
-                  <PrivateRoute token={token}>
-                    <Home />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/visitantes"
-                element={
-                  <PrivateRoute token={token}>
-                    <VisitantesPage />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/ativos"
-                element={
-                  <PrivateRoute token={token}>
-                    <PainelAtivos atualizar={atualizar} />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/buscar"
-                element={
-                  <PrivateRoute token={token}>
-                    <BuscarVisitante />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/resultados"
-                element={
-                  <PrivateRoute token={token}>
-                    <BuscaResultado />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/cadastro"
-                element={
-                  <PrivateRoute token={token}>
-                    <FormVisitante onCadastro={handleCadastro} />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/historico/:id"
-                element={
-                  <PrivateRoute token={token}>
-                    <HistoricoVisitas />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/historico"
-                element={
-                  <PrivateRoute token={token}>
-                    <Historico />
-                  </PrivateRoute>
-                }
-              />
+              <Topo />
+              <Navbar onLogout={handleLogout} />
             </>
           )}
 
-          {/* Página de erro */}
-          <Route path="/erro" element={<Erro />} />
+          <main className="app-main">
+            <Routes>
+              {!token && (
+                <Route path="/login" element={<Login onLogin={setToken} />} />
+              )}
 
-          {/* Redirecionamento padrão */}
-          <Route path="*" element={<Navigate to={token ? "/" : "/login"} />} />
-        </Routes>
-      </ErrorBoundary>
-      <ToastContainer position="top-center" autoClose={3000} />
-      <Footer />
+              {token && (
+                <>
+                  <Route
+                    path="/"
+                    element={
+                      <PrivateRoute token={token}>
+                        <Home />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/visitantes"
+                    element={
+                      <PrivateRoute token={token}>
+                        <VisitantesPage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/ativos"
+                    element={
+                      <PrivateRoute token={token}>
+                        <PainelAtivos atualizar={atualizar} />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/buscar"
+                    element={
+                      <PrivateRoute token={token}>
+                        <BuscarVisitante />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/resultados"
+                    element={
+                      <PrivateRoute token={token}>
+                        <BuscaResultado />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/cadastro"
+                    element={
+                      <PrivateRoute token={token}>
+                        <FormVisitante onCadastro={handleCadastro} />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/historico/:id"
+                    element={
+                      <PrivateRoute token={token}>
+                        <HistoricoVisitas />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/historico"
+                    element={
+                      <PrivateRoute token={token}>
+                        <Historico />
+                      </PrivateRoute>
+                    }
+                  />
+                </>
+              )}
+
+              <Route path="/erro" element={<Erro />} />
+
+              <Route
+                path="*"
+                element={<Navigate to={token ? "/" : "/login"} />}
+              />
+            </Routes>
+          </main>
+        </ErrorBoundary>
+
+        <ToastContainer position="top-center" autoClose={3000} />
+        <Footer />
+      </div>
     </Router>
   );
 }

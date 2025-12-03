@@ -5,16 +5,26 @@
   font-family: Verdana;;
 }
 
+html,
 body {
-  min-height: 100vh;
-  width:100vw;
-  overflow-x: hidden;
-  background: linear-gradient(120deg, #ecf8f2 0%, #ffffff 100%);
+  height: 100%;
+  margin: 0;
 }
-h2 {
-  text-align: center;
-  margin: 15px;
-  color: #333;
-  
-  
+
+#root {
+  height: 100%;
+}
+
+/* wrapper principal (em App) */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* área entre header/navbar e footer */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

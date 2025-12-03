@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormBusca from "../../Components/BuscaVisitante";
 import "./style.css";
 
@@ -9,7 +9,8 @@ export default function Home() {
   
   const handleCadastro = () => {
     setAtualizar((prev) => !prev);
-  };
+  }; 
+  
   return (
     <div className="centralizarTudo">
       <div >
