@@ -12,32 +12,19 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const refreshToken = localStorage.getItem("refresh_token");
-        const res = await api.get("/auth/refresh", {
-          headers: { Authorization: `Bearer ${refreshToken}` },
-        });
-        const newToken = res.data.access_token;
-        localStorage.setItem("token", newToken);
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return api(originalRequest);
-      } catch {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        window.location.href = "/login";
-        return Promise.reject(error);
-      }
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
 );
+
+
+
 
 export const login = async (credentials) => {
   const response = await api.post("/auth/login", credentials);
