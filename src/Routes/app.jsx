@@ -28,30 +28,22 @@ export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+  const keycloak = useKeycloak();
+
   useEffect(() => {
-    // se não há token ou o keycloak ainda não sabe se está autenticado, não agenda nada
-    if (!token || !keycloak.authenticated) return;
+    if (keycloak.keycloak.authenticated) {
+      console.log('✅ Refresh token disponível:', !!keycloak.keycloak.refreshToken);
+      console.log('Token completo:', keycloak.keycloak.refreshToken);
 
-    // checa a cada 30s e renova se faltar <= 60s para expirar
-    const interval = setInterval(() => {
-      keycloak
-        .updateToken(60)
-        .then((refreshed) => {
-          if (refreshed && keycloak.token) {
-            const newToken = keycloak.token;
-            setToken(newToken);
-            localStorage.setItem("token", newToken);
-            console.log("Token renovado");
-          }
-        })
-        .catch((err) => {
-          console.warn("Falha ao renovar token", err);
-          // NÃO desloga aqui automaticamente; deixa o próximo 401 mandar para /login
-        });
-    }, 30000); // 30 segundos
+      // Teste renovação
+      keycloak.keycloak.updateToken(30).then(refreshed => {
+        console.log('✅ Renovação OK:', refreshed);
+      }).catch(err => {
+        console.error('❌ Erro renovação:', err);
+      });
+    }
+  }, [keycloak.keycloak.authenticated]);
 
-    return () => clearInterval(interval);
-  }, [token]);
 
   const handleLogout = () => {
     keycloak.logout();
