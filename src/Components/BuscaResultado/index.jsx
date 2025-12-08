@@ -23,7 +23,7 @@ export default function BuscarResultado() {
 
     if (termoBusca) {
       try {
-        console.log("URL chamada:", getBuscarVisitante(termoBusca));
+        // console.log("URL chamada:", getBuscarVisitante(termoBusca));
         const token = localStorage.getItem("token");
 
         const response = await axios.get(getBuscarVisitante(termoBusca), {
