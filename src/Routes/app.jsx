@@ -5,6 +5,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+//import { useKeycloak } from '@react-keycloak/web';
+
 import keycloak from "../keycloak";
 import Home from "../Pages/Home";
 import VisitantesPage from "../Pages/VisitantePage";
@@ -28,22 +30,25 @@ export default function App() {
   const [atualizar, setAtualizar] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const keycloak = useKeycloak();
+  //const keycloak = useKeycloak();
 
   useEffect(() => {
-    if (keycloak.keycloak.authenticated) {
-      console.log('✅ Refresh token disponível:', !!keycloak.keycloak.refreshToken);
-      console.log('Token completo:', keycloak.keycloak.refreshToken);
-
-      // Teste renovação
-      keycloak.keycloak.updateToken(30).then(refreshed => {
+    
+    if (keycloak.authenticated && keycloak.refreshToken) {
+      console.log('✅ Refresh token disponível:', !!keycloak.refreshToken);
+      console.log('Token preview:', keycloak.refreshToken?.substring(0, 50) + '...');
+      
+      keycloak.updateToken(30).then(refreshed => {
         console.log('✅ Renovação OK:', refreshed);
+        if (refreshed && keycloak.token) {
+          setToken(keycloak.token);
+          localStorage.setItem("token", keycloak.token);
+        }
       }).catch(err => {
         console.error('❌ Erro renovação:', err);
       });
     }
-  }, [keycloak.keycloak.authenticated]);
-
+  }, []);  
 
   const handleLogout = () => {
     keycloak.logout();

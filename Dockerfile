@@ -1,9 +1,16 @@
 FROM node:22-alpine
 
+WORKDIR /app
+
+# Correto para Alpine (sem -y)
 RUN apk update && apk upgrade
 
-WORKDIR /app
 COPY package*.json ./
-RUN npm install
+# Instala @react-keycloak/web + deps
+RUN npm ci
+
 COPY . .
+EXPOSE 5173
+
+# Seu CMD original (dev mode)
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
