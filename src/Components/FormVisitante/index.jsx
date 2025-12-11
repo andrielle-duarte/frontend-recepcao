@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./style.css";
+import { jwtDecode } from "jwt-decode";
+
 import axios from "axios";
 import { isValidCPF } from "./cpfValidator";
 import Swal from "sweetalert2";
@@ -45,6 +47,12 @@ export default function Home({ onCadastro }) {
   const onSubmit = async (data) => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        Swal.fire("Erro", "Token não encontrado. Faça login novamente.", "error");
+        return;
+      }
+      const decoded = jwtDecode(token);
+
 
       const visitanteResponse = await axios.post(
         "http://localhost:8000/visitantes",
@@ -60,6 +68,7 @@ export default function Home({ onCadastro }) {
       );
 
       const visitante = visitanteResponse.data;
+      const username = decoded?.preferred_username || decoded?.name || "usuário";
 
       const visitaData = {
         visitante_id: visitante.id,
@@ -79,6 +88,11 @@ export default function Home({ onCadastro }) {
       );
 
       console.log("Visita iniciada:", visitaResponse.data);
+      Swal.fire(
+        "Cadastrado!",
+        `Visitante ${visitante.nome} foi cadastrado.`, //por ${username}.
+        "success"
+      );
       onCadastro();
       reset({
         nome: "",
@@ -100,7 +114,7 @@ export default function Home({ onCadastro }) {
         confirmButtonColor: "#6aed6a",
       });
     }
-  }; 
+  };
 
   return (
     <div className="centralizarTudo">
